@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DB_HOST=<%= @db_host %>
+DB_USERNAME=<%= @db_username %>
+DB_PASSWORD=<%= @db_password %>
+DB_NAME=<%= @db_name %>
+
+ADMIN_PASSWORD=<%= @admin_password %>
+ORDER_NUMBER=<%= @order_number %>
+LICENSE_KEY=<%= @license_key %>
+
+/usr/local/zend/bin/zs-manage bootstrap-single-server -p $ADMIN_PASSWORD -o $ORDER_NUMBER -l $LICENSE_KEY -a TRUE > /zs-done
+WEB_API_KEY=`head -1 /zs-done | cut -f1`
+WEB_API_KEY_HASH=`head -1 /zs-done | cut -f2`
+if [[ $DB_HOST != "" && $DB_USERNAME != "" && $DB_PASSWORD != "" && $DB_NAME != "" ]]; then
+    /usr/local/zend/bin/zs-manage server-add-to-cluster -n <%= @hostname %> -i <%= @ipaddress_eth1 %> -o $DB_HOST -u $DB_USERNAME -p $DB_PASSWORD -d $DB_NAME -N $WEB_API_KEY -K $WEB_API_KEY_HASH >> /zs-cluster.sh
+    eval `cat /zs-cluster.sh`
+fi
+
+sleep 10
+
+/usr/local/zend/bin/zs-manage restart -N $WEB_API_KEY -K $WEB_API_KEY_HASH &>> /zs-done
+
+echo WEB_API_KEY=$WEB_API_KEY > /zs-webapi-key.sh
+echo WEB_API_KEY_HASH=$WEB_API_KEY_HASH >> /zs-webapi-key.sh
+
+touch /zs-done
