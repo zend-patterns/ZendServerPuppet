@@ -1,3 +1,3 @@
-class zend-server::install inherits zend-server {
+class zendserver::install inherits zendserver {
     
 }

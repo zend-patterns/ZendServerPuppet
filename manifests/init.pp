@@ -1,12 +1,12 @@
-class zend-server (
-  $manage_repos = $zend-server::params::manage_repos
-) inherits zend-server::params {
+class zendserver (
+  $manage_repos = $zendserver::params::manage_repos
+) inherits zendserver::params {
 
   validate_bool($manage_repos)
   
-  anchor { 'zend-server::begin': } ->
-    class { '::zend-server::install': } ->
-    class { '::zend-server::config': }  ~>
-    class { '::zend-server::service': } ->
-  anchor { 'zend-server::end': }
+  anchor { 'zendserver::begin': } ->
+    class { '::zendserver::install': } ->
+    class { '::zendserver::config': }  ~>
+    class { '::zendserver::service': } ->
+  anchor { 'zendserver::end': }
 }

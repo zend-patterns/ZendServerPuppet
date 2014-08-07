@@ -1,4 +1,4 @@
-class zend-server::params {
+class zendserver::params {
   $manage_repos = true
 
   case $::osfamily {

@@ -1,3 +1,3 @@
-class zend-server::service inherits zend-server {
+class zendserver::service inherits zendserver {
     
 }
