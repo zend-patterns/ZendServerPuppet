@@ -3,10 +3,10 @@ class zendserver::params {
 
   case $::osfamily {
     'Debian': {
-      include ::repo::debian
+      include zendserver::repo::debian
     }
     'RedHat': {
-      include ::repo::redhat
+      include zendserver::repo::redhat
     }
 
     default: {
