@@ -12,5 +12,5 @@ class zendserver::params {
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
     }
-
+  }
 }
