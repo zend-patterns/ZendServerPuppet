@@ -1,3 +1,6 @@
+# == Class: zendserver::repo::debian
+#   Manage Zend Server repositories on debian systems
+#
 class zendserver::repo::debian inherits zendserver {
 
   if $caller_module_name != $module_name {
@@ -19,14 +22,20 @@ class zendserver::repo::debian inherits zendserver {
 
   ## Ubuntu 13.10:
   # deb http://repos.zend.com/zend-server/7.0/deb_apache2.4 server non-free
-  case $operatingsystem {
-    'Ubuntu': { 
-      if $lsbdistrelease    >= 13.10 { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4'}
-      elsif $lsbdistrelease >= 12.04 { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0'}
-      else { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'}
+  case $::operatingsystem {
+    'Ubuntu': {
+      if $::lsbdistrelease    >= 13.10 {
+        $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4'
+      }
+      elsif $::lsbdistrelease >= 12.04 {
+        $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0'
+      }
+      else {
+        $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
+      }
     }
     #TODO: setup correct debian repositories
     'Debian': {}
-    'Default': {$zend_repository='http://repos.zend.com/zend-server/7.0/deb'}
+    default: {$zend_repository='http://repos.zend.com/zend-server/7.0/deb'}
   }
 }
