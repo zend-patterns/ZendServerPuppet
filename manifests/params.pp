@@ -1,5 +1,8 @@
-#TODO: document class
+# == Class: zendserver::params
+#  Parameters class for zendserver class
+#
 class zendserver::params {
+  $admin_password = 'changeme'
   $manage_repos = true
   $webserver    = 'apache'
   $phpversion   = '5.5'
@@ -7,11 +10,9 @@ class zendserver::params {
   $license_key  = undef
   $zend_server_version = 7
   $join_cluster = false
-  #TODO: api_key_name + web_api_key_secret are required if join_cluster=true
   $admin_api_key_name = undef
   $admin_api_key_secret = undef
 
-  
   case $::osfamily {
     'Debian': {
       $package_lsbrelease = 'lsb-release'
@@ -21,9 +22,8 @@ class zendserver::params {
       $package_lsbrelease = 'lsb-release'
       include zendserver::repo::redhat
     }
-
     default: {
-      fail("The ${module_name} module is not supported on an ${::osfamily} based system.")
+      fail("The ${module_name} module is not supported on a ${::osfamily} based system.")
     }
   }
 }
