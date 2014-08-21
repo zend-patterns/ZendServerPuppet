@@ -11,7 +11,7 @@ class zendserver::repo::debian inherits zendserver {
     key        => 'F7D2C623',
     key_source => 'http://repos.zend.com/zend.key',
   }
-
+  # TODO: maybe move $zend_repository setting to params.pp 
   ### APACHE:
 
   ## Default:
@@ -37,5 +37,13 @@ class zendserver::repo::debian inherits zendserver {
     #TODO: setup correct debian repositories
     'Debian': {}
     default: {$zend_repository='http://repos.zend.com/zend-server/7.0/deb'}
+  }
+  
+  apt::source { 'zend-server':
+    comment  => 'Zend Server Repository',
+    location => $zend_repository,
+    release  => 'server',
+    repos    => 'non-free',
+    require  => Apt::Key['zend'],
   }
 }

@@ -1,0 +1,35 @@
+{
+  "author": "",
+  "checksums": {
+    "templates/zs-init.sh.erb": "d1a132358d3f3611994fa5f49cf49773",
+    "manifests/install.pp": "91ee6f92a97b9e03c8bcc01df8701ea7",
+    "manifests/repo/redhat.pp": "6e94887a3596733039151391dc263a31",
+    "manifests/service.pp": "0da9ba320ed968bf921bad9678360eff",
+    "Modulefile": "7a65eb1512d8fc2f63aa4d3869bdd98a",
+    "manifests/params.pp": "8301c9ae15acbb3e625362d3dd0f9c8a",
+    "templates/zend.list.erb": "4f60ab6298cf6a68966cd7cc657b4d81",
+    "manifests/requirements.pp": "20001f2a8f8f165e0807a73bf6cf99e4",
+    "manifests/init.pp": "08554a16ac2b8bdbe0bad822caca9c1d",
+    "manifests/repo/debian.pp": "a208c25fe39879dce4c3bbb22716bc6e",
+    "manifests/config.pp": "c4c3d2f1545ae6be9968ca26663133a2",
+    "README.md": "71538c1cffbb65160139a3eb6e458463"
+  },
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": "4.3.2"
+    },
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": "1.6.0"
+    }
+  ],
+  "description": "",
+  "license": "",
+  "name": "zend-zendserver",
+  "project_page": "",
+  "source": "",
+  "summary": "",
+  "types": [],
+  "version": "0.1.0"
+}

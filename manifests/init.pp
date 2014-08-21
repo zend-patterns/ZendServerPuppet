@@ -76,7 +76,7 @@ class zendserver (
   anchor { 'zendserver::begin': } ->
     class { '::zendserver::requirements': } ->
     class { '::zendserver::install': } ->
-    class { '::zendserver::config': }  ~>
+    class { '::zendserver::bootstrap': }  ~>
     class { '::zendserver::service': } ->
   anchor { 'zendserver::end': }
 }
