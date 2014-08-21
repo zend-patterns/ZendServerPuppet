@@ -1,0 +1,1 @@
+class zendserver::repo::redhat {}
