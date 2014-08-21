@@ -1,0 +1,10 @@
+com.puppetlabs.geppetto.pp.dsl.PP.formatter.align.useProjectSettings=true
+eclipse.preferences.version=1
+formatAlignAssigments=true
+formatAlignCases=true
+formatAlignDefinitionParams=OnOverflow
+formatAlignHashes=OnOverflow
+formatAlignLists=OnOverflow
+formatClusterWidth=20
+formatCompactCases=true
+formatCompactResources=true

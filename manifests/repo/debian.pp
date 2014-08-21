@@ -9,7 +9,7 @@ class zendserver::repo::debian inherits zendserver {
     key_source => 'http://repos.zend.com/zend.key',
   }
 
- ### APACHE:
+  ### APACHE:
 
   ## Default:
   # deb http://repos.zend.com/zend-server/7.0/deb server non-free
@@ -19,4 +19,14 @@ class zendserver::repo::debian inherits zendserver {
 
   ## Ubuntu 13.10:
   # deb http://repos.zend.com/zend-server/7.0/deb_apache2.4 server non-free
+  case $operatingsystem {
+    'Ubuntu': { 
+      if $lsbdistrelease    >= 13.10 { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4'}
+      elsif $lsbdistrelease >= 12.04 { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0'}
+      else { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'}
+    }
+    #TODO: setup correct debian repositories
+    'Debian': {}
+    'Default': {$zend_repository='http://repos.zend.com/zend-server/7.0/deb'}
+  }
 }
