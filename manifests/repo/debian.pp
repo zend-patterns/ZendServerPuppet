@@ -1,7 +1,7 @@
 # == Class: zendserver::repo::debian
 #   Manage Zend Server repositories on debian systems
 #
-class zendserver::repo::debian inherits zendserver {
+class zendserver::repo::debian {
 
   if $caller_module_name != $module_name {
     warning("${name} should not be directly included in the manifest.")
@@ -11,7 +11,7 @@ class zendserver::repo::debian inherits zendserver {
     key        => 'F7D2C623',
     key_source => 'http://repos.zend.com/zend.key',
   }
-
+  # TODO: maybe move $zend_repository setting to params.pp 
   ### APACHE:
 
   ## Default:
@@ -33,9 +33,18 @@ class zendserver::repo::debian inherits zendserver {
       else {
         $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
       }
-    }
+   }
     #TODO: setup correct debian repositories
     'Debian': {}
     default: {$zend_repository='http://repos.zend.com/zend-server/7.0/deb'}
+  }
+  
+  apt::source { 'zend-server':
+    comment      => 'Zend Server Repository',
+    location     => $zend_repository,
+    release      => 'server',
+    repos       => 'non-free',
+    include_src => false,
+    require      => Apt::Key['zend'],
   }
 }
