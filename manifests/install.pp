@@ -1,7 +1,7 @@
 # == Class: zendserver::install
 #   Install Zend Server
 #
-class zendserver::install inherits zendserver {
+class zendserver::install{
   case $::osfamily {
     'Debian': {    
       include zendserver::install::debian
