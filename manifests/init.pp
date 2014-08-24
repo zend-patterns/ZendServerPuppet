@@ -27,9 +27,11 @@
 # [*db_schema*]
 # Schema to use for Zend Server (default:'zendserver')
 # [*admin_api_key_name*]
-# Zend Server API key to use for interfacing with Zend Server (Default:'admin')
+# Zend Server 64 charachter API key to use for interfacing with Zend Server (Default:'admin')
 # [*admin_api_key_secret*]
 #  = 'caff756fd7682fa35901afa923822f63771570c25afd5368eaa659f2f71d4d6f',
+# [*admin_email*]
+# Email address to which Zend Server will send administrative messages.
 # === Examples
 #
 #class {'zendserver':
@@ -46,6 +48,7 @@
 #  $db_schema            = 'zendserver',
 #  $admin_api_key_name   = 'admin',
 #  $admin_api_key_secret = 'caff756fd7682fa35901afa923822f63771570c25afd5368e',
+#  $admin_email          = 'admin@domain.tld',
 #}
 #
 # === Authors
@@ -67,6 +70,7 @@ class zendserver (
   $db_schema            = undef,
   $admin_api_key_name   = $zendserver::params::admin_api_key_name,
   $admin_api_key_secret = $zendserver::params::admin_api_key_secret,
+  $admin_email          = $zendserver::params::admin_email,
 ) inherits zendserver::params{
   validate_bool($manage_repos)
   validate_re($webserver, ['\Aapache|nginx\Z',], 'Only apache or nginx are supported.')

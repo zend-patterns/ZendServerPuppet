@@ -12,6 +12,7 @@ class zendserver::params {
   $join_cluster = false
   $admin_api_key_name = undef
   $admin_api_key_secret = undef
+  $admin_email = "root@${::fqdn}"
 
   case $::osfamily {
     'Debian': {
