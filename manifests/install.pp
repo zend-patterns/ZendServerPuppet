@@ -14,4 +14,11 @@ class zendserver::install{
   package {"zend-server-php-${zendserver::phpversion}":
     ensure  => 'latest',  
   }
+  
+  file {'/usr/local/zend': 
+    ensure  => directory,
+    require => Packgage["zend-server-php-${zendserver::phpversion}"],
+  }
+  
+  file {'/usr/local/zend/bin': ensure => directory,}
 }
