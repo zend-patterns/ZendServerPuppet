@@ -22,7 +22,8 @@
     {
       "name": "puppetlabs/apt",
       "version_requirement": "1.6.0"
-    }
+    },
+    {"name":"puppetlabs/inifile","version_requirement":"1.1.1"}
   ],
   "description": "",
   "license": "",
