@@ -2,6 +2,7 @@
 #  Parameters class for zendserver class
 #
 class zendserver::params {
+  $accept_eula = true
   $admin_password = 'changeme'
   $manage_repos = true
   $webserver    = 'apache'

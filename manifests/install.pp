@@ -3,22 +3,22 @@
 #
 class zendserver::install{
   case $::osfamily {
-    'Debian': {    
+    'Debian': {
       include zendserver::install::debian
     }
     'RedHat': {
       include zendserver::install::redhat
     }
-  }   
+  }
   #TODO:if api_key was not specified then save Zend Server API key as a fact.
   package {"zend-server-php-${zendserver::phpversion}":
-    ensure  => 'latest',  
+    ensure  => 'latest',
   }
-  
-  file {'/usr/local/zend': 
+
+  file {'/usr/local/zend':
     ensure  => directory,
-    require => Packgage["zend-server-php-${zendserver::phpversion}"],
+    require => Package["zend-server-php-${zendserver::phpversion}"],
   }
-  
+
   file {'/usr/local/zend/bin': ensure => directory,}
 }

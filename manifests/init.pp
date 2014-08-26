@@ -2,6 +2,8 @@
 #   Install and configure Zend Server
 #
 # === Parameters
+# [*accept_eula*]
+# Accept Zend Server End User License Agreement (default:true)
 # [*admin_password*]
 # Password for zend server console
 # [*manage_repos*]
@@ -34,7 +36,7 @@
 # Email address to which Zend Server will send administrative messages.
 # === Examples
 #
-#class {'zendserver':
+# class {'zendserver':
 #  $admin_password       => 'password'
 #  $manage_repos         => true,
 #  $webserver            => 'apache',
@@ -56,6 +58,7 @@
 # David Lowes <david.l@zend.com>
 # Michael Krieg
 class zendserver (
+  $accept_eula          = $zendserver::params::accept_eula,
   $admin_password       = $zendserver::params::admin_password,
   $manage_repos         = $zendserver::params::manage_repos,
   $webserver            = $zendserver::params::webserver,
@@ -70,16 +73,15 @@ class zendserver (
   $db_schema            = undef,
   $admin_api_key_name   = $zendserver::params::admin_api_key_name,
   $admin_api_key_secret = $zendserver::params::admin_api_key_secret,
-  $admin_email          = $zendserver::params::admin_email,
-) inherits zendserver::params{
+  $admin_email          = $zendserver::params::admin_email,) inherits zendserver::params {
   validate_bool($manage_repos)
   validate_re($webserver, ['\Aapache|nginx\Z',], 'Only apache or nginx are supported.')
   validate_re($phpversion, ['\A5.4|5.5\Z',], 'Only versions 5.4 or 5.5 are supported.')
-  #TODO: api_key_name + web_api_key_secret are required if join_cluster=true
+  # TODO: api_key_name + web_api_key_secret are required if join_cluster=true
   anchor { 'zendserver::begin': } ->
-    class { '::zendserver::requirements': } ->
-    class { '::zendserver::install': } ->
-    class { '::zendserver::bootstrap': }  ~>
-    class { '::zendserver::service': } ->
+  class { '::zendserver::requirements': } ->
+  class { '::zendserver::install': } ->
+  class { '::zendserver::bootstrap': } ~>
+  class { '::zendserver::service': } ->
   anchor { 'zendserver::end': }
 }
