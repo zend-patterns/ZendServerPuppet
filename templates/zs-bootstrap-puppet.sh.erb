@@ -1,0 +1,29 @@
+#!/bin/bash
+
+ADMIN_PASSWORD=<%= scope.lookupvar('zendserver::admin_password') %>
+ORDER_NUMBER=<%= scope.lookupvar('zendserver::license_name') %>
+LICENSE_KEY=<%= scope.lookupvar('zendserver::license_key') %>
+TARGET_NAME=localadmin
+CREATE_FACTS=<%= scope.lookupvar('zendserver::create_facts') %>
+
+/usr/local/zend/bin/zs-manage bootstrap-single-server -p $ADMIN_PASSWORD -o $ORDER_NUMBER -l $LICENSE_KEY -a TRUE > /usr/local/zend/tmp/zs-done
+WEB_API_KEY=`head -1 /usr/local/zend/tmp/zs-done | cut -f1`
+WEB_API_KEY_HASH=`head -1 /usr/local/zend/tmp/zs-done | cut -f2`
+
+
+echo WEB_API_KEY=$WEB_API_KEY > /usr/local/zend/etc/zs-webapi-key.sh
+echo WEB_API_KEY_HASH=$WEB_API_KEY_HASH >> /usr/local/zend/etc/zs-webapi-key.sh
+
+#Create target to be used by zs-client.phar
+/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar addTarget --target=$TARGET_NAME --zskey=$WEB_API_KEY --zssecret=$WEB_API_KEY_HASH
+
+if $CREATE_FACTS == true 
+then
+	#Create web_api_key facts if required
+	FACTS_DIR=/etc/facter/facts.d
+	mkdir -p $FACTS_DIR && \
+	echo "zend_api_key_name=$WEB_API_KEY" > $FACTS_DIR/zend_api_key_name.txt
+	echo "zend_api_key_hash=$WEB_API_KEY_HASH" > $FACTS_DIR/zend_api_key_hash.txt
+fi
+
+touch /usr/local/zend/tmp/zs-done
