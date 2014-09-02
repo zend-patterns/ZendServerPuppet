@@ -6,5 +6,5 @@ then
       targets+=$i
     done
 fi
-echo zendapi.targets=$targets
+echo zend_api_targets=$targets
 

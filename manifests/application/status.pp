@@ -1,0 +1,7 @@
+/* applicationGetStatus [--applications=] [--direction=] [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=] [--http=]
+
+Get the list of applications currently deployed (or staged) on the server or the cluster and information about each application. If application IDs are specified, this method will return information about the specified applications. If no IDs are specified, this method will return information about all applications on the server or cluster.
+  --applications    A list of application IDs. If specified, information will be returned about the specific applications only. If not specified, information about all applications will be returned. If a non-existing application ID is        
+                    provided this action will not fail but instead will return no information about the specific application.                                                                                                                     
+  --direction       One of ASC|DESC. Sets the ordering direction. Ordering is always by User application name.                                                                                                                                    
+*/
