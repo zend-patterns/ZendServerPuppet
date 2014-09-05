@@ -11,8 +11,6 @@ $api_key_hash=$zs_api_config[$zs_api_target]['zssecret'];
 
 $get_app_details="/usr/local/zend/bin/zs-manage app-get-status -N $api_key_name -K $api_key_hash 2>/dev/null|grep http|cut -f 2,3,4,5,6,7";
 
-var_dump($zs_api_config);
-
 exec($get_app_details , $app_exec_output);
 foreach ($app_exec_output as $line){
   if (preg_match("/\[NOTICE\]/",$line)) {

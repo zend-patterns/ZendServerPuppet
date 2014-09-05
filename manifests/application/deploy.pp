@@ -34,9 +34,11 @@ define zendserver::application::deploy (
   $required_options   = "--appPackage=${app_package} --baseUrl=${base_url}"
   $additional_options = "--createVhost=${create_vhost} --userAppName=${user_app_name}"
 
+  $app_name_fact = getvar("::zend_application_name_${user_app_name}")
+  
   # Check if application is deployed by using facter
-  if defined("$::zend_application_name_${name}") {
-
+  if $app_name_fact != undef {
+    
   } else {
     zendserver::sdk::command { "app_deploy_$name":
       target             => $target,
