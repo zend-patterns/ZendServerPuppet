@@ -12,6 +12,6 @@ define zendserver::sdk::target ($zskey,
   exec {"add-target-${name}":
     command     => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar addTarget --target=${target} --zskey=${zskey} --zssecret=${zssecret}",
     require     => File['/usr/local/zend/bin/zs-client.phar'],
-    unless      => "/usr/local/zend/bin/php /usr/local/bin/zs-client.phar getSystemInfo --target=${target}",
+    unless      => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar getSystemInfo --target=${target}",
   }
 }
