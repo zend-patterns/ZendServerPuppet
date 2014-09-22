@@ -71,6 +71,7 @@ class zendserver (
   $db_username           = undef,
   $db_password           = undef,
   $db_schema             = undef,
+  $db_host               = undef,
   $admin_api_key_name    = $zendserver::params::admin_api_key_name,
   $admin_api_key_secret  = $zendserver::params::admin_api_key_secret,
   $admin_api_target_neme = $zendserver::params::admin_api_target_name,
@@ -85,6 +86,7 @@ class zendserver (
   class { '::zendserver::install': } ->
   class { '::zendserver::sdk::install': } ->
   class { '::zendserver::bootstrap': } ~>
+  class { '::zendserver::cluster': } ~>
   class { '::zendserver::service': } ->
   anchor { 'zendserver::end': }
 }

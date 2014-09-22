@@ -11,9 +11,21 @@ class zendserver::bootstrap::exec inherits zendserver::bootstrap {
     require => File['/usr/local/zend'],
   }
 
+  file { 'zs-puppet-common-functions.sh':
+    path    => '/usr/local/zend/bin/zs-puppet-common-functions.sh',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => "puppet:///modules/${module_name}/zs-puppet-common-functions.sh",
+    require => File['/usr/local/zend'],
+  }
+
   exec { 'zend-server-init':
     command => '/usr/local/zend/bin/zs-bootstrap-puppet.sh',
     creates => '/usr/local/zend/tmp/zs-done',
-    require => [File['zs-bootstrap-puppet.sh'],File['/usr/local/zend/bin/zs-client.phar']],
+    require => [
+      File['zs-bootstrap-puppet.sh'],
+      File['/usr/local/zend/bin/zs-client.phar'],
+      File['zs-puppet-common-functions.sh']],
   }
 }
