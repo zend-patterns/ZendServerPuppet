@@ -1,27 +1,42 @@
 #!/bin/bash
+#TODO: add support for specifying which ethernet interface to get the IP from
 
-DB_HOST=<%= @db_host %>
-DB_USERNAME=<%= @db_username %>
-DB_PASSWORD=<%= @db_password %>
-DB_NAME=<%= @db_name %>
+TARGET_NAME=localadmin
+CREATE_FACTS=<%= scope.lookupvar('zendserver::create_facts') %>
 
-ADMIN_PASSWORD=<%= @admin_password %>
-ORDER_NUMBER=<%= @order_number %>
-LICENSE_KEY=<%= @license_key %>
+DB_HOST=<%= scope.lookupvar('zendserver::db_host') %>
+DB_USERNAME=<%= scope.lookupvar('zendserver::db_username') %>
+DB_PASSWORD=<%= scope.lookupvar('zendserver::db_password') %>
+DB_SCHEMA=<%= scope.lookupvar('zendserver::db_schema') %>
+NODE_IP=`facter ipaddress`
 
-/usr/local/zend/bin/zs-manage bootstrap-single-server -p $ADMIN_PASSWORD -o $ORDER_NUMBER -l $LICENSE_KEY -a TRUE > /zs-done
-WEB_API_KEY=`head -1 /zs-done | cut -f1`
-WEB_API_KEY_HASH=`head -1 /zs-done | cut -f2`
-if [[ $DB_HOST != "" && $DB_USERNAME != "" && $DB_PASSWORD != "" && $DB_NAME != "" ]]; then
-    /usr/local/zend/bin/zs-manage server-add-to-cluster -n <%= @hostname %> -i <%= @ipaddress_eth1 %> -o $DB_HOST -u $DB_USERNAME -p $DB_PASSWORD -d $DB_NAME -N $WEB_API_KEY -K $WEB_API_KEY_HASH >> /zs-cluster.sh
-    eval `cat /zs-cluster.sh`
+#JOIN_CLUSTER_OUT_FILE=<%= scope.lookupvar('zendserver::join_cluster_out_file') %>
+JOIN_CLUSTER_OUT_FILE=/usr/local/zend/tmp/join-cluster.out
+PATH=/usr/local/zend/bin:$PATH
+TARGET_NAME=localadmin
+
+#Include common functions
+source /usr/local/zend/bin/zs-puppet-common-functions.sh
+
+#Exit if running user is not root
+#if [[ $USER != 'root' ]] ; then echo "This script must be ran as root" ; exit 1 ; fi
+
+#Make the script idempotent - 
+#Check if Zend Server is already bootstrapped
+ZEND_SERVER_BOOTSTRAPPED=`facter zend_gui_completed`
+if [[ $ZEND_SERVER_BOOTSTRAPPED == true ]] 
+then
+  #zs_manage_join_cluster
+  zs_client_join_cluster
+else
+  exit 1
 fi
 
-sleep 10
+  #sleep 10
 
-/usr/local/zend/bin/zs-manage restart -N $WEB_API_KEY -K $WEB_API_KEY_HASH &>> /zs-done
+  #/usr/local/zend/bin/zs-manage restart -N $WEB_API_KEY -K $WEB_API_KEY_HASH &>> /zs-done
 
-echo WEB_API_KEY=$WEB_API_KEY > /zs-webapi-key.sh
-echo WEB_API_KEY_HASH=$WEB_API_KEY_HASH >> /zs-webapi-key.sh
+  #echo WEB_API_KEY=$WEB_API_KEY > /zs-webapi-key.sh
+  #echo WEB_API_KEY_HASH=$WEB_API_KEY_HASH >> /zs-webapi-key.sh
 
-touch /zs-done
+  #touch /zs-done
