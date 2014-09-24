@@ -1,0 +1,37 @@
+#!/bin/bash
+
+ADMIN_PASSWORD=<%= scope.lookupvar('zendserver::admin_password') %>
+ORDER_NUMBER=<%= scope.lookupvar('zendserver::license_name') %>
+LICENSE_KEY=<%= scope.lookupvar('zendserver::license_key') %>
+TARGET_NAME=localadmin
+CREATE_FACTS=<%= scope.lookupvar('zendserver::create_facts') %>
+BOOTSTRAP_OUTPUT_FILE='/usr/local/zend/tmp/zs-done'
+
+
+#Include common functions
+source /usr/local/zend/bin/zs-puppet-common-functions.sh
+
+#Exit if running user is not root
+#if [[ $USER != 'root' ]] ; then echo "This script must be ran as root" ; exit 1 ; fi
+
+#Make the script idempotent - 
+#Check if Zend Server is already bootstrapped
+ZEND_SERVER_BOOTSTRAPPED=`facter zend_gui_completed`
+if [[ $ZEND_SERVER_BOOTSTRAPPED == true ]] 
+then 
+  exit 0
+else
+  #Bootstrap Zend Server in single server mode
+  zs_manage_bootstrap_single || exit 1 #The whole script should fail if bootstrap failed
+  #Get web web api key from $BOOTSTRAP_OUTPUT_FILE
+  get_web_api_key_from_file &&\
+    create_web_api_key_wrapper_script &&\
+    create_zs_client_target
+  #Create target to be used by zs-client.phar
+
+  #Create web_api_key facts if required
+  if [ $CREATE_FACTS == true ]
+  then
+    create_facts
+  fi
+fi
