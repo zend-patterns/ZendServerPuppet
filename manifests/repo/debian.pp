@@ -32,8 +32,13 @@ class zendserver::repo::debian {
         $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
       }
     }
-    # TODO: setup correct debian repositories
+    
     'Debian' : {
+      case $::operatingsystemmajrelease {
+        5, 6    : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb' }
+        7       : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0' }
+        default : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4' }
+      }
     }
     default  : {
       $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
