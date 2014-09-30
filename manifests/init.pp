@@ -76,7 +76,9 @@ class zendserver (
   $admin_api_key_secret  = $zendserver::params::admin_api_key_secret,
   $admin_api_target_neme = $zendserver::params::admin_api_target_name,
   $create_facts          = $zendserver::params::create_facts,
-  $admin_email           = $zendserver::params::admin_email,) inherits zendserver::params {
+  $admin_email           = $zendserver::params::admin_email,
+  $default_server        = undef,
+  $external_url          = undef,) inherits zendserver::params {
   validate_bool($manage_repos)
   validate_re($webserver, ['\Aapache|nginx\Z',], 'Only apache or nginx are supported.')
   validate_re($phpversion, ['\A5.4|5.5\Z',], 'Only versions 5.4 or 5.5 are supported.')
