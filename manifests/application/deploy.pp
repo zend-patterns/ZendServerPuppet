@@ -1,7 +1,7 @@
 define zendserver::application::deploy (
   $app_package,
   $base_url,
-  $create_vhost  = false,
+  $create_vhost  = true,
   $target,
   $user_app_name = $name,
   $user_params   = '',) {
