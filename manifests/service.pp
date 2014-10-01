@@ -7,6 +7,6 @@ class zendserver::service inherits zendserver {
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
-    require    => Package["zend-server-php-${zendserver::phpversion}"],
+    require    => Package[$zendserver::install::zendserverpkgname],
   }
 }
