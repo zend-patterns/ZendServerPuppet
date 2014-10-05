@@ -2,6 +2,6 @@
 #  RedHat specific settings for Zend Server install
 #
 class zendserver::install::redhat inherits zendserver::install {
- Package["zend-server-php-${zendserver::phpversion}"] {
+ Package[$zendserver::install::vars::zendserverpkgname] {
     require => [Yumrepo['Zend'], Yumrepo['Zend_noarch']], }
 }

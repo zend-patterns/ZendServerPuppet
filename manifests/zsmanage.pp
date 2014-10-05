@@ -9,6 +9,6 @@ define zendserver::zsmanage (
   $zsurl              = "http://localhost:10081/ZendServer",) {
   exec { "zsmanage_${name}":
     command => "/usr/local/zend/bin/zs-manage ${command} -N ${zskey} -K ${zssecret} -T ${http_timeout} ${additional_options}",
-    require => Package["zend-server-php-${zendserver::phpversion}"],
+    require => Package[$zendserver::install::zendserverpkgname],
   }
 }
