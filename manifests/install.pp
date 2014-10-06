@@ -30,5 +30,7 @@ class zendserver::install {
     require => Package[$zendserverpkgname],
   }
 
+  file { '/usr/local/zend/bin/pecl': }
+
   file { '/usr/local/zend/bin': ensure => directory, }
 }
