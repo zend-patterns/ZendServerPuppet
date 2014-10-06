@@ -3,6 +3,11 @@
 #
 
 class zendserver::install {
+  case $::zendserver::webserver {
+    'nginx' : { $zendserverpkgname = "zend-server-${zendserver::webserver}-php-${zendserver::phpversion}" }
+    default : { $zendserverpkgname = "zend-server-php-${zendserver::phpversion}" }
+  }
+
   case $::osfamily {
     'Debian' : {
       include ::zendserver::repo::debian
@@ -15,11 +20,6 @@ class zendserver::install {
     default  : {
       fail("The ${module_name} is not supported on ${::osfamily}")
     }
-  }
-
-  case $::zendserver::webserver {
-    'apache' : { $zendserverpkgname = "zend-server-${zendserver::webserver}-php-${zendserver::phpversion}" }
-    default  : { $zendserverpkgname = "zend-server-php-${zendserver::phpversion}" }
   }
 
   # TODO:if api_key was not specified then save Zend Server API key as a fact.
