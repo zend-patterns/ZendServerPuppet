@@ -12,33 +12,26 @@ class zendserver::extension::pecl ($ensure = 'present', $pecl_module = $name, $p
   case $ensure {
     'present'         : {
       $action = 'install'
-
-      exec { "pecl_${action}_${pecl_module}":
-        path    => "/usr/local/zend/bin:${::path}",
-        command => "${pecl_binary} ${action} ${pecl_module}",
-        unless  => "${pecl_binary} list ${pecl_module}",
-        require => File[$pecl_binary],
-      }
+      $onlyif = ''
+      $unless = "${pecl_binary} list ${pecl_module}"
     }
     'latest', default : {
       $action = 'upgrade'
-
-      exec { "pecl_${action}_${pecl_module}":
-        path    => "/usr/local/zend/bin:${::path}",
-        command => "${pecl_binary} ${action} ${pecl_module}",
-        require => File[$pecl_binary],
-      }
+      $onlyif = ''
+      $unless = ''
     }
     'absent'          : {
       $action = 'uninstall'
-
-      exec { "pecl_${action}_${pecl_module}":
-        path    => "/usr/local/zend/bin:${::path}",
-        command => "${pecl_binary} ${action} ${pecl_module}",
-        onlyif  => "${pecl_binary} list ${pecl_module}",
-        require => File[$pecl_binary],
-      }
+      $onlyif = "${pecl_binary} list ${pecl_module}"
+      $unless = ''
     }
   }
 
+  exec { "pecl_${action}_${pecl_module}":
+    path    => "/usr/local/zend/bin:${::path}",
+    command => "${pecl_binary} ${action} ${pecl_module}",
+    unless  => $unless,
+    onlyif  => $onlyif,
+    require => File[$pecl_binary],
+  }
 }
