@@ -1,42 +1,42 @@
-# == Class: zendserver::extension::pear
-#   Manage pear extensions.  You should manually require build dependencies for the pear module.
+# == Class: zendserver::extension::pecl
+#   Manage pecl extensions.  You should manually require build dependencies for the pecl module.
 # === Parameters
 # [*ensure*]
-# present - Install the pear package if it is not present
-# latest - Make sure that the pear package is at it's latest version
+# present - Install the pecl package if it is not present
+# latest - Make sure that the pecl package is at it's latest version
 # absent - remove the module if present
-# [*pear_module*]
+# [*pecl_module*]
 # Name of the module to install - defaults to the extension's name
 
-class zendserver::extension::pear ($ensure = 'present', $pear_module = $name, $pear_binary = '/usr/local/zend/bin/pear',) {
+class zendserver::extension::pecl ($ensure = 'present', $pecl_module = $name, $pecl_binary = '/usr/local/zend/bin/pecl',) {
   case $ensure {
     'present'         : {
       $action = 'install'
 
-      exec { "pear_${action}_${pear_module}":
+      exec { "pecl_${action}_${pecl_module}":
         path    => "/usr/local/zend/bin:${::path}",
-        command => "${pear_binary} ${action} ${pear_module}",
-        unless  => "${pear_binary} list ${pear_module}",
-        require => File[$pear_binary],
+        command => "${pecl_binary} ${action} ${pecl_module}",
+        unless  => "${pecl_binary} list ${pecl_module}",
+        require => File[$pecl_binary],
       }
     }
     'latest', default : {
       $action = 'upgrade'
 
-      exec { "pear_${action}_${pear_module}":
+      exec { "pecl_${action}_${pecl_module}":
         path    => "/usr/local/zend/bin:${::path}",
-        command => "${pear_binary} ${action} ${pear_module}",
-        require => File[$pear_binary],
+        command => "${pecl_binary} ${action} ${pecl_module}",
+        require => File[$pecl_binary],
       }
     }
     'absent'          : {
       $action = 'uninstall'
 
-      exec { "pear_${action}_${pear_module}":
+      exec { "pecl_${action}_${pecl_module}":
         path    => "/usr/local/zend/bin:${::path}",
-        command => "${pear_binary} ${action} ${pear_module}",
-        onlyif  => "${pear_binary} list ${pear_module}",
-        require => File[$pear_binary],
+        command => "${pecl_binary} ${action} ${pecl_module}",
+        onlyif  => "${pecl_binary} list ${pecl_module}",
+        require => File[$pecl_binary],
       }
     }
   }
