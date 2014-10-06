@@ -12,33 +12,26 @@ class zendserver::extension::pear ($ensure = 'present', $pear_module = $name, $p
   case $ensure {
     'present'         : {
       $action = 'install'
-
-      exec { "pear_${action}_${pear_module}":
-        path    => "/usr/local/zend/bin:${::path}",
-        command => "${pear_binary} ${action} ${pear_module}",
-        unless  => "${pear_binary} list ${pear_module}",
-        require => File[$pear_binary],
-      }
+      $onlyif = ''
+      $unless = "${pear_binary} list ${pear_module}"
     }
     'latest', default : {
       $action = 'upgrade'
-
-      exec { "pear_${action}_${pear_module}":
-        path    => "/usr/local/zend/bin:${::path}",
-        command => "${pear_binary} ${action} ${pear_module}",
-        require => File[$pear_binary],
-      }
+      $onlyif = ''
+      $unless = ''
     }
     'absent'          : {
       $action = 'uninstall'
-
-      exec { "pear_${action}_${pear_module}":
-        path    => "/usr/local/zend/bin:${::path}",
-        command => "${pear_binary} ${action} ${pear_module}",
-        onlyif  => "${pear_binary} list ${pear_module}",
-        require => File[$pear_binary],
-      }
+      $onlyif = "${pear_binary} list ${pear_module}"
+      $unless = ''
     }
   }
 
+  exec { "pear_${action}_${pear_module}":
+    path    => "/usr/local/zend/bin:${::path}",
+    command => "${pear_binary} ${action} ${pear_module}",
+    unless  => $unless,
+    onlyif  => $onlyif,
+    require => File[$pear_binary],
+  }
 }
