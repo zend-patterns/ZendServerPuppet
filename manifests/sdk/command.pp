@@ -5,7 +5,9 @@ define zendserver::sdk::command ( $target,
                                   $zskey    = undef,
                                   $zssecret = undef,
                                   $http_timeout = 60,
-                                  $additional_options = '',){
+                                  $additional_options = '',
+                                  $tries = 3,
+                                  $try_sleep = 5){
     exec {"zsapi_${name}":
     path    => "/usr/local/zend/bin:${::path}",
     command => "zs-client.phar ${api_command} --target=${target} ${additional_options} "

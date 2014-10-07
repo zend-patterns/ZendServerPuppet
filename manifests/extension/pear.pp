@@ -1,4 +1,4 @@
-# == Class: zendserver::extension::pear
+# == Defined type: zendserver::extension::pear
 #   Manage pear extensions.  You should manually require build dependencies for the pear module.
 # === Parameters
 # [*ensure*]
@@ -8,7 +8,7 @@
 # [*pear_module*]
 # Name of the module to install - defaults to the extension's name
 
-class zendserver::extension::pear ($ensure = 'present', $pear_module = $name, $pear_binary = '/usr/local/zend/bin/pear',) {
+define zendserver::extension::pear ($ensure = 'present', $pear_module = $name, $pear_binary = '/usr/local/zend/bin/pear',) {
   case $ensure {
     'present'         : {
       $action = 'install'

@@ -1,4 +1,4 @@
-# == Class: zendserver::extension::pecl
+# == Defined type: zendserver::extension::pecl
 #   Manage pecl extensions.  You should manually require build dependencies for the pecl module.
 # === Parameters
 # [*ensure*]
@@ -8,7 +8,7 @@
 # [*pecl_module*]
 # Name of the module to install - defaults to the extension's name
 
-class zendserver::extension::pecl ($ensure = 'present', $pecl_module = $name, $pecl_binary = '/usr/local/zend/bin/pecl',) {
+define zendserver::extension::pecl ($ensure = 'present', $pecl_module = $name, $pecl_binary = '/usr/local/zend/bin/pecl',) {
   case $ensure {
     'present'         : {
       $action = 'install'
