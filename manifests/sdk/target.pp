@@ -1,8 +1,18 @@
 # == Definition: zendserver::sdk::target
 # Manage an sdk target to be used for all sdk calls
 # This define authenticates against the Zend Server api
+# === Parameters
+# [*target*]
+# The target which will be managed
+# [*zsurl*]
+# The URL for the Zend Server API (not necessary if a target is defined)
+# [*zskey*]
+# Zend Server API key name (not necessary if a target is defined)
+# [*zssecret*]
+# Zend Server API key secret hash (not necessary if a target is defined)
+# [*zsversion*]
+# The version of Zend Server that this target runs - this option helps choose the correct web api calls to use
 
-#TODO: use params class pattern
 define zendserver::sdk::target ($zskey,
                                 $zssecret,
                                 $target=$name,

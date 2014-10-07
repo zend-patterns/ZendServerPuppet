@@ -1,7 +1,6 @@
-# == Definition: zendserver::sdk::command
+# == Define: zendserver::sdk::command
 # Execute a Zend Server web api function using the next generation zend server SDK (zs-client.phar)
 # You can read more about the SDK at https://github.com/zend-patterns/ZendServerSDK
-# This define authenticates against the Zend Server api
 # === Parameters
 # [*target*]
 # The target which the command will be run against - zendserver::bootstrap::exec defines a target named 'localamdin' pointing to the local server
@@ -10,11 +9,11 @@
 # The api command to run (Default: $name). See /usr/local/zend/bin/zs-client.phar command:all for a list of commands to run
 # [*zsurl*]
 # The URL for the Zend Server API (not necessary if a target is defined)
-# [*zskey*] 
+# [*zskey*]
 # Zend Server API key name (not necessary if a target is defined)
-# [*zssecret*] 
+# [*zssecret*]
 # Zend Server API key secret hash (not necessary if a target is defined)
-# [*http_timeout*] 
+# [*http_timeout*]
 # Timeout for accessing the Zend Server web API in seconds (Default :60)
 # [*additional_options*]
 # Additional options to pass to the web api client such as parameters for the call.
@@ -22,7 +21,6 @@
 # Number of times to retry the request if failed. (Default: 3)
 # [*try_sleep*]
 # Number of seconds to sleep between retries. (Default: 5)
-  
 define zendserver::sdk::command (
   $target,
   $api_command        = $name,
