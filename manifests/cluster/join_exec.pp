@@ -1,3 +1,7 @@
+# == Class: zendserver::cluster::join_exec
+#   This is an internal class that joins a Zend Server cluster using a generated shell script.
+#   This class should not be called directly from within the module.
+
 class zendserver::cluster::join_exec inherits zendserver::cluster {
   file { 'join-cluster.sh':
     path    => '/usr/local/zend/bin/join-cluster.sh',
