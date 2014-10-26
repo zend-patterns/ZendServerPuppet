@@ -7,23 +7,33 @@
 # absent - remove the module if present
 # [*pecl_module*]
 # Name of the module to install - defaults to the extension's name
-
-define zendserver::extension::pecl ($ensure = 'present', $pecl_module = $name, $pecl_binary = '/usr/local/zend/bin/pecl',) {
+# [*extension_binary*]
+# Name of the extension to load
+define zendserver::extension::pecl (
+  $ensure           = 'present',
+  $pecl_module      = $name,
+  $pecl_binary      = '/usr/local/zend/bin/pecl',
+  $extension_binary = "${name}.so",
+  $overwrite_config = true,) {
   case $ensure {
     'present'         : {
       $action = 'install'
       $onlyif = ''
       $unless = "${pecl_binary} list ${pecl_module}"
+      $config_file_ensure = $ensure
     }
     'latest', default : {
       $action = 'upgrade'
       $onlyif = ''
       $unless = ''
+      $config_file_ensure = 'present'
     }
     'absent'          : {
       $action = 'uninstall'
       $onlyif = "${pecl_binary} list ${pecl_module}"
       $unless = ''
+      $config_file_ensure = $ensure
+      $config_file_template = undef
     }
   }
 
