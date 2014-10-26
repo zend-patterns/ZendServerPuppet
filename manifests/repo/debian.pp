@@ -32,7 +32,7 @@ class zendserver::repo::debian {
         $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
       }
     }
-    
+
     'Debian' : {
       case $::operatingsystemmajrelease {
         5, 6    : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb' }

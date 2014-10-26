@@ -1,5 +1,5 @@
 # == Class: zendserver::params
-#  Parameters class for zendserver class
+#  Parameters class for the zendserver class. This class should not be included directly in the manifest.
 #
 class zendserver::params {
   $accept_eula = true

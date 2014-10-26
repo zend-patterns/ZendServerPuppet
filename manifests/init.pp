@@ -2,37 +2,37 @@
 #   Install and configure Zend Server
 #
 # === Parameters
-# [*accept_eula*]
+#[*accept_eula*]
 # Accept Zend Server End User License Agreement (default:true)
-# [*admin_password*]
+#[*admin_password*]
 # Password for zend server console
-# [*manage_repos*]
+#[*manage_repos*]
 # Should the class manage Zend Server repositories (default:true)
-# [*webserver*]
+#[*webserver*]
 # Web Server to manage. Valid options:'apache','nginx' (default:'apache')
-# [*phpversion*]
+#[*phpversion*]
 # PHP version to install. (default:'5.5')
-# [*license_name*]
+#[*license_name*]
 # Zend Server licensed user name or order number.
-# [*license_key*]
+#[*license_key*]
 # Zend Server License Key
-# [*zend_server_version*]
+#[*zend_server_version*]
 # Zend Server Version (Default:7)
-# [*join_cluster*]
+#[*join_cluster*]
 # Whether to join a Zend Server cluster(default:false)
-# [*db_username*]
+#[*db_username*]
 # Mysql user for Zend Server database.
 # If left blank then Zend Server will use sqlite.
 # This parameter is required if join_cluster is true.
-# [*db_password*]
+#[*db_password*]
 # Password for Zend Server database.
-# [*db_schema*]
+#[*db_schema*]
 # Schema to use for Zend Server (default:'zendserver')
-# [*admin_api_key_name*]
+#[*admin_api_key_name*]
 # Zend Server 64 charachter API key to use for interfacing with Zend Server (Default:'admin')
-# [*admin_api_key_secret*]
+#[*admin_api_key_secret*]
 #  = 'caff756fd7682fa35901afa923822f63771570c25afd5368eaa659f2f71d4d6f',
-# [*admin_email*]
+#[*admin_email*]
 # Email address to which Zend Server will send administrative messages.
 # === Examples
 #
