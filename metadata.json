@@ -1,5 +1,5 @@
 {
-  "author": "",
+  "author": "David Lowes",
   "checksums": {
     "templates/zs-init.sh.erb": "d1a132358d3f3611994fa5f49cf49773",
     "manifests/install.pp": "91ee6f92a97b9e03c8bcc01df8701ea7",
@@ -22,15 +22,36 @@
     {
       "name": "puppetlabs/apt",
       "version_requirement": "1.6.0"
-    },
-    {"name":"puppetlabs/inifile","version_requirement":"1.1.1"}
+    }
   ],
-  "description": "",
-  "license": "",
+  "operatingsystem_support": [
+  	{
+  		"operatingsystem":"RedHat",
+  		"operatingsystemrelease":[ "5.0", "6.0", "7.0" ]
+  	},
+  	{
+  		"operatingsystem":"CentOS",
+  		"operatingsystemrelease":[ "5.0", "6.0", "7.0" ]
+  	},
+  	{
+  		"operatingsystem":"Debian",
+  		"operatingsystemrelease":[ "6.0", "7.0" ]
+  	},
+  	{
+  		"operatingsystem": "Ubuntu",
+  		"operatingsystemrelease": [
+    		"14.04",
+    		"12.04",
+    		"10.04"
+    	]
+  	}
+  ],
+  "description": "Install and manage Zend Server",
+  "license": "Apache 2",
   "name": "zend-zendserver",
-  "project_page": "",
-  "source": "",
-  "summary": "",
+  "project_page": "http://www.zend.com/en/products/server",
+  "source": "https://github.com/zend-patterns/ZendServerPuppet.git",
+  "summary": "Install and manage Zend Server",
   "types": [],
   "version": "0.1.0"
 }
