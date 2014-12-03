@@ -30,11 +30,29 @@ define zendserver::sdk::command (
   $http_timeout       = 60,
   $additional_options = '',
   $tries              = 3,
-  $try_sleep          = 5,) {
-  exec { "zsapi_${name}":
-    path      => "/usr/local/zend/bin:${::path}",
-    tries     => $tries,
-    try_sleep => $try_sleep,
-    command   => "zs-client.phar ${api_command} --target=${target} ${additional_options} ",
+  $try_sleep          = 5,
+  $cwd                = undef,
+) {
+
+  if $cwd == undef {
+    exec { "zsapi_${name}":
+      path      => "/usr/local/zend/bin:${::path}",
+      tries     => $tries,
+      try_sleep => $try_sleep,
+      command   => "zs-client.phar ${api_command} --target=${target} ${additional_options} ",
+      logoutput => true,
+      require => File['/usr/local/zend/bin/zs-client.phar'],
+    }
+  } else {
+    exec { "zsapi_${name}":
+      path      => "/usr/local/zend/bin:${::path}",
+      tries     => $tries,
+      cwd       => $cwd,
+      try_sleep => $try_sleep,
+      command   => "zs-client.phar ${api_command} --target=${target} ${additional_options} ",
+      logoutput => true,
+      require => File['/usr/local/zend/bin/zs-client.phar'],
+    }
   }
+
 }

@@ -22,6 +22,8 @@ class zendserver::repo::debian {
 
   # # Ubuntu 13.10:
   # deb http://repos.zend.com/zend-server/7.0/deb_apache2.4 server non-free
+  notify { "server: {$::operatingsystemmajrelease}": }
+
   case $::operatingsystem {
     'Ubuntu' : {
       if $::lsbdistrelease >= 13.10 {
@@ -35,13 +37,14 @@ class zendserver::repo::debian {
 
     'Debian' : {
       case $::operatingsystemmajrelease {
-        5, 6    : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb' }
-        7       : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0' }
-        default : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4' }
+#        5, 6    : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb' }
+#        7       : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0' }
+#        8       : { $zend_repository = 'http://repos.zend.com/zend-server/8.0.0-beta/deb_ssl1.0' }
+        default : { $zend_repository = 'http://repos.zend.com/zend-server/8.0.0-beta/deb_ssl1.0' }
       }
     }
     default  : {
-      $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
+      $zend_repository = 'http://repos.zend.com/zend-server/8.0.0-beta/deb_ssl1.0'
     }
   }
 
