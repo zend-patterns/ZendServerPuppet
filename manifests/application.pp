@@ -45,7 +45,11 @@ define zendserver::application (
   $user_params   = '',
   $version       = undef,
   $health_check  = undef,
-  $logo          = '',) {
+  $logo          = '',
+  $cwd           = undef,
+) {
+
+  notify {"target: ${target}":}
   case $ensure {
     'present', 'deployed'  : {
       zendserver::application::deploy { $name:
@@ -55,6 +59,7 @@ define zendserver::application (
         create_vhost  => $create_vhost,
         user_app_name => $user_app_name,
         user_params   => $user_params,
+        cwd           => $cwd,
       }
     }
     'defined'              : {
