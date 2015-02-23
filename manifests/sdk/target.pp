@@ -16,7 +16,7 @@
 define zendserver::sdk::target ($zskey,
                                 $zssecret,
                                 $target=$name,
-                                $zsurl='http://localhost:10081',
+                                $zsurl="${zendserver::zsurl}",
                                 $zsversion='8.0'){
   #TODO: replace the exec with a file or ini_file type
   exec {"add-target-${name}":

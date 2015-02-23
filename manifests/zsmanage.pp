@@ -22,7 +22,7 @@ define zendserver::zsmanage (
   $zssecret,
   $http_timeout       = 60,
   $additional_options = '',
-  $zsurl              = 'http://localhost:10081/ZendServer',) {
+  $zsurl              =  "${zendserver::zsurl}",) {
   exec { "zsmanage_${name}":
     command => "/usr/local/zend/bin/zs-manage ${command} -N ${zskey} -K ${zssecret} -T ${http_timeout} ${additional_options}",
     require => Package[$zendserver::install::zendserverpkgname],

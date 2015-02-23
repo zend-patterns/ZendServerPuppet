@@ -93,7 +93,7 @@ To manually install the module:
   /etc/puppet/modules
   ├── puppetlabs-apt (v1.6.0)
   ├── puppetlabs-stdlib (v4.3.2)
-  └── zend-zendserver (v0.1.0)
+  └── zend-zendserver (v0.2.0)
 ```
 Alternatively you can use R10K to install the module and dependencies (see the puppet file in the above Vagrant test box for reference.
 

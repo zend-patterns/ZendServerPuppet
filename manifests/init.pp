@@ -51,6 +51,7 @@
 #  $admin_api_key_name   = 'admin',
 #  $admin_api_key_secret = 'caff756fd7682fa35901afa923822f63771570c25afd5368e',
 #  $admin_email          = 'admin@domain.tld',
+#  $zsurl                = 'http://localhost:10081',
 #}
 #
 # === Authors
@@ -77,6 +78,7 @@ class zendserver (
   $admin_api_target_neme = $zendserver::params::admin_api_target_name,
   $create_facts          = $zendserver::params::create_facts,
   $admin_email           = $zendserver::params::admin_email,
+  $zsurl                 = $zendserver::params::zsurl,
   $default_server        = undef,
   $external_url          = undef,) inherits zendserver::params {
   validate_bool($manage_repos)

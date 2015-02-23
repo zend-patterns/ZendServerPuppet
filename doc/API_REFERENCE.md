@@ -37,6 +37,7 @@ Install, bootstrap and configure Zend Server.
   $admin_api_key_name   = 'admin',
   $admin_api_key_secret = 'caff756fd7682fa35901afa923822f63771570c25afd5368e',
   $admin_email          = 'admin@domain.tld',
+  $zsurl                = 'http://localhost:10081',
 }
 ```
 
@@ -143,7 +144,7 @@ This is defined type wraps around the zs-manage command that can be used to cont
 * zssecret - Zend Server Web API Key hash.
 * http_timeout - Timeout for the remote Zend Server to respond 60 seconds).
 * additional_options Additional options to pass to zs-manage. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
-* zsurl - URL To the Zend Server web API  http://localhost:10081/ZendServer)
+* zsurl - URL To the Zend Server web API  http://localhost:10081)
 
 ##Service[zend-server]
 This service makes sure that Zend Server and apache are up. 

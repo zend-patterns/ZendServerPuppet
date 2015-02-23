@@ -15,6 +15,7 @@ class zendserver::params {
   $admin_api_key_secret = undef
   $admin_api_target_name = 'puppet'
   $admin_email = "root@${::fqdn}"
+  $zsurl = "http://localhost:10081"
   $create_facts = true
 
   # Make sure that Zend Server is in the path of every exec
