@@ -10,7 +10,7 @@ Install, bootstrap and configure Zend Server.
 * phpversion - PHP version to install. (default:'5.5')
 * license_name - Zend Server licensed user name or order number.
 * license_key - Zend Server License Key
-* zend_server_version - Zend Server Version (Default:7)
+* zend_server_version - Zend Server Version (Default:8)
 * join_cluster - Whether to join a Zend Server cluster(default:false)
 * db_username - Mysql user for Zend Server database. If left blank then Zend Server will use sqlite. This parameter is required if join_cluster is true.
 * db_password - Password for Zend Server database.
@@ -29,7 +29,7 @@ Install, bootstrap and configure Zend Server.
   $phpversion           => '5.5',
   $license_name         = 'licensed_user',
   $license_key          = '42309fdfas0df90fsd',
-  $zend_server_version  = '7',
+  $zend_server_version  = '8.0',
   $join_cluster         = true,
   $db_username          = 'mysqluser',
   $db_password          = 'mysqlpassword',
