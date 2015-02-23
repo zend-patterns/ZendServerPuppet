@@ -84,31 +84,15 @@ class zendserver (
   validate_bool($manage_repos)
   validate_re($webserver, ['\Aapache|nginx\Z',], 'Only apache or nginx are supported.')
   validate_re($phpversion, ['\A5.3|5.4|5.5\Z',], 'Only versions 5.4 or 5.5 are supported.')
-# TODO: api_key_name + web_api_key_secret are required if join_cluster=true
+  # TODO: api_key_name + web_api_key_secret are required if join_cluster=true
   anchor { 'zendserver::begin': } ->
-  # not exactly what requirements does
   class { '::zendserver::requirements': } ->
-  # get the repo package
   class { '::zendserver::install': } ->
-  # install the sdk
   class { '::zendserver::sdk::install': } ->
-  # require zs-puppet-common-functions.sh
-  # require zs-bootstrap-puppet.sh
-  # execute zs-bootstrap-puppet.sh <--created from template
-  #  which calls zs-puppet-common-functions.sh
-  # if server is not already bootstrapped
-  #  zs_manage_bootstrap_single
-  #  get_web_api_key_from_file
-  #  create_web_api_key_wrapper_script
-  #  create_zs_client_target
-  #  create_facts
   class { '::zendserver::bootstrap': } ~>
-  # causes the module to join a cluster if necessary
   class { '::zendserver::cluster': } ~>
-  # enable the service
   class { '::zendserver::service': } ->
   anchor { 'zendserver::end': }
-
   notify{ "zendserversetup key {$admin_api_key_name}": }
   notify{ "zendserversetup secret {$admin_api_key_secret}": }
   notify{ "zendserversetup hash ${zend_api_key_hash}":
@@ -117,5 +101,4 @@ class zendserver (
         Class['zendserver::bootstrap'],
       ]
   }
-
 }
