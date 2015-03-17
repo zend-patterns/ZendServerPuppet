@@ -43,7 +43,7 @@
 #  $phpversion           => '5.5',
 #  $license_name         = 'licensed_user',
 #  $license_key          = '42309fdfas0df90fsd',
-#  $zend_server_version  = '7',
+#  $zend_server_version  = '8.0',
 #  $join_cluster         = true,
 #  $db_username          = 'mysqluser',
 #  $db_password          = 'mysqlpassword',
@@ -51,6 +51,7 @@
 #  $admin_api_key_name   = 'admin',
 #  $admin_api_key_secret = 'caff756fd7682fa35901afa923822f63771570c25afd5368e',
 #  $admin_email          = 'admin@domain.tld',
+#  $zsurl                = 'http://localhost:10081',
 #}
 #
 # === Authors
@@ -77,6 +78,7 @@ class zendserver (
   $admin_api_target_neme = $zendserver::params::admin_api_target_name,
   $create_facts          = $zendserver::params::create_facts,
   $admin_email           = $zendserver::params::admin_email,
+  $zsurl                 = $zendserver::params::zsurl,
   $default_server        = undef,
   $external_url          = undef,) inherits zendserver::params {
   validate_bool($manage_repos)
@@ -91,4 +93,12 @@ class zendserver (
   class { '::zendserver::cluster': } ~>
   class { '::zendserver::service': } ->
   anchor { 'zendserver::end': }
+  notify{ "zendserversetup key {$admin_api_key_name}": }
+  notify{ "zendserversetup secret {$admin_api_key_secret}": }
+  notify{ "zendserversetup hash ${zend_api_key_hash}":
+      require => [
+        Service['zend-server'],
+        Class['zendserver::bootstrap'],
+      ]
+  }
 }

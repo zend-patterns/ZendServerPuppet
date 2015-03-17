@@ -9,12 +9,13 @@ class zendserver::params {
   $phpversion = '5.5'
   $license_name = undef
   $license_key = undef
-  $zend_server_version = '7.0'
+  $zend_server_version = '8.0'
   $join_cluster = false
   $admin_api_key_name = undef
   $admin_api_key_secret = undef
   $admin_api_target_name = 'puppet'
   $admin_email = "root@${::fqdn}"
+  $zsurl = "http://localhost:10081"
   $create_facts = true
 
   # Make sure that Zend Server is in the path of every exec

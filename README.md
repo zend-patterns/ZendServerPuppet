@@ -93,7 +93,7 @@ To manually install the module:
   /etc/puppet/modules
   ├── puppetlabs-apt (v1.6.0)
   ├── puppetlabs-stdlib (v4.3.2)
-  └── zend-zendserver (v0.1.0)
+  └── zend-zendserver (v0.2.0)
 ```
 Alternatively you can use R10K to install the module and dependencies (see the puppet file in the above Vagrant test box for reference.
 
@@ -113,7 +113,7 @@ The module is still under testing - please try it on a non-production system fir
   * It is recommended you do not use the module to manage a Zend Server system that was not installed with this module(Such a setup might work but is untested).
   * You should make sure that no other PHP installation is present on the system (such as the distros' php or manually installed versions).
 The module does not add /usr/local/zend/bin to the search path - you might want to do it yourself.
-  * Zend Server version >=7 (older versions are untested).
+  * Zend Server version >=7.0 (older versions are untested). Default version is 8.0.
   * Support for apache (2.2/2.4) web server (nginx support is untested).
   * The module is not compatible with the puppetlabs/apache module. Do not use both modules to manage the same node (=server). puppetlabs/apache can be used to manage other nodes.
 

@@ -53,5 +53,5 @@
   "source": "https://github.com/zend-patterns/ZendServerPuppet.git",
   "summary": "Install and manage Zend Server",
   "types": [],
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

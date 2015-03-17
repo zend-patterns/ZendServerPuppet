@@ -19,9 +19,11 @@ define zendserver::application::deploy (
   $base_url,
   $user_app_name = $name,
   $create_vhost  = 'true',
-  $user_params   = '',) {
+  $user_params   = '',
+  $cwd           = undef,
+) {
   $required_options   = "--zpk=${app_package} --baseUri=${base_url}"
-  $additional_options = "--createVhost=${create_vhost} --userAppName=${user_app_name}"
+  $additional_options = "--createVhost=${create_vhost} --userAppName=${user_app_name} --userParams=\"${user_params}\""
 
   $app_name_fact = getvar("::zend_application_name_${user_app_name}")
 
@@ -31,6 +33,7 @@ define zendserver::application::deploy (
   } else {
     zendserver::sdk::command { "app_deploy_${name}":
       target             => $target,
+      cwd                => $cwd,
       api_command        => 'installApp',
       additional_options => "${required_options} ${additional_options}",
     }

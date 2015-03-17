@@ -1,3 +1,4 @@
+#!/bin/sh
 #Create web_api_key facts if required
 function create_facts () {
   FACTS_DIR=/etc/facter/facts.d

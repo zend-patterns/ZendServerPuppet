@@ -12,36 +12,24 @@ class zendserver::repo::debian {
   }
 
   # TODO: maybe move $zend_repository setting to params.pp
-  # ## APACHE:
+  #
+  #  For Ubuntu 12.04 or Debian 7 and above, use:
+  #  deb http://repos.zend.com/zend-server/8.0/deb_ssl1.0 server non-free
+  #
+  #  For Ubuntu 14.04 and above, use:
+  #  deb http://repos.zend.com/zend-server/8.0/deb_apache2.4 server non-free
+  notify { "server: {$::operatingsystemmajrelease}": }
 
-  # # Default:
-  # deb http://repos.zend.com/zend-server/7.0/deb server non-free
-
-  # # Ubuntu >= 12.04 or Debian >= 7:
-  # deb http://repos.zend.com/zend-server/7.0/deb_ssl1.0 server non-free
-
-  # # Ubuntu 13.10:
-  # deb http://repos.zend.com/zend-server/7.0/deb_apache2.4 server non-free
   case $::operatingsystem {
     'Ubuntu' : {
-      if $::lsbdistrelease >= 13.10 {
-        $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4'
-      } elsif $::lsbdistrelease >= 12.04 {
-        $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0'
+      if $::lsbdistrelease >= 14.04 {
+        $zend_repository = "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/deb_apache2.4"
       } else {
-        $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
-      }
-    }
-
-    'Debian' : {
-      case $::operatingsystemmajrelease {
-        5, 6    : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb' }
-        7       : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_ssl1.0' }
-        default : { $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb_apache2.4' }
+        $zend_repository = "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/deb_ssl1.0"
       }
     }
     default  : {
-      $zend_repository = 'http://repos.zend.com/zend-server/7.0/deb'
+      $zend_repository = "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/deb_ssl1.0"
     }
   }
 
