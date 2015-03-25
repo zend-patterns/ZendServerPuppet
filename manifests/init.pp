@@ -83,7 +83,7 @@ class zendserver (
   $external_url          = undef,) inherits zendserver::params {
   validate_bool($manage_repos)
   validate_re($webserver, ['\Aapache|nginx\Z',], 'Only apache or nginx are supported.')
-  validate_re($phpversion, ['\A5.3|5.4|5.5\Z',], 'Only versions 5.4 or 5.5 are supported.')
+  validate_re($phpversion, ['\A5.3|5.4|5.5|5.6\Z',], 'Only versions 5.4 to 5.6 are supported.')
   # TODO: api_key_name + web_api_key_secret are required if join_cluster=true
   anchor { 'zendserver::begin': } ->
   class { '::zendserver::requirements': } ->
