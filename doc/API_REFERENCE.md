@@ -42,7 +42,7 @@ Install, bootstrap and configure Zend Server.
 ```
 
 ##zendserver::application
-Deploy or define a Zend Server application. 
+Deploy or define a Zend Server application.
 
 ###Parameters
 * ensure:
@@ -98,7 +98,7 @@ Manage php extensions. This defined type can be used to obtain, install and conf
 
 
 ##zendserver::library
-Deploy a Zend Server library. 
+Deploy a Zend Server library.
 
 ### Parameters
 
@@ -136,16 +136,17 @@ You can define more targets using zendserver::sdk:target
 * try_sleep - Number of seconds to sleep between retries. (Default: 5)
 
 ##zendserver::zsmanage
-This is defined type wraps around the zs-manage command that can be used to control Zend Server.
+This defined type wraps around the `zs-manage` command that can be used to control Zend Server.
 
 ### Parameters
 * command - The Zend Server command to run. See "/usr/local/zend/bin/zs-manage --help" for a list of available commands.
 * zskey - Zend Server Web API Key name.
 * zssecret - Zend Server Web API Key hash.
 * http_timeout - Timeout for the remote Zend Server to respond 60 seconds).
-* additional_options Additional options to pass to zs-manage. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
+* additional_options - Additional options to pass to zs-manage. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
 * zsurl - URL To the Zend Server web API  http://localhost:10081)
+* onlyif - If this parameter is set, then this will only run if the command has an exit code of 0. This functions the same way as [`exec`'s `onlyif` attribute](https://docs.puppet.com/puppet/4.6/reference/types/exec.html#exec-attribute-onlyif)
 
 ##Service[zend-server]
-This service makes sure that Zend Server and apache are up. 
+This service makes sure that Zend Server and apache are up.
 Notifying(refreshing) this service will restart Zend Server and apache.
