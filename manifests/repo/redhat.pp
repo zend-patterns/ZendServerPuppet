@@ -7,7 +7,7 @@ class zendserver::repo::redhat inherits zendserver {
   }
 
   yumrepo { 'Zend':
-    baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/rpm/${::architecture}",
+    baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/rpm_apache2.4/${::architecture}",
     descr    => 'Zend Server',
     enabled  => 1,
     gpgcheck => 1,
@@ -15,7 +15,7 @@ class zendserver::repo::redhat inherits zendserver {
   }
 
   yumrepo { 'Zend_noarch':
-    baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/rpm/noarch",
+    baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/rpm_apache2.4/noarch",
     descr    => 'Zend Server',
     enabled  => 1,
     gpgcheck => 1,
