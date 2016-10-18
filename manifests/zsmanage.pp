@@ -11,9 +11,11 @@
 # [*http_timeout*]
 # Timeout for the remote Zend Server to respond (Default: 60 seconds)
 # [*additional_options*]
+# Options to supply to the Zend Server command. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
 # [*zsurl*]
 # URL To the Zend Server web API (Default: http://localhost:10081/ZendServer)
-# Options to supply to the Zend Server command. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
+# [*onlyif*]
+# If this parameter is set, then this will only run if the command has an exit code of 0.
 # TODO: use params class pattern
 # TODO: merge into zendserver::sdk class as a provider
 define zendserver::zsmanage (
@@ -22,9 +24,11 @@ define zendserver::zsmanage (
   $zssecret,
   $http_timeout       = 60,
   $additional_options = '',
-  $zsurl              =  "${zendserver::zsurl}",) {
+  $zsurl              =  "${zendserver::zsurl}",
+  $onlyif             = [],) {
   exec { "zsmanage_${name}":
     command => "/usr/local/zend/bin/zs-manage ${command} -N ${zskey} -K ${zssecret} -T ${http_timeout} ${additional_options}",
     require => Package[$zendserver::install::zendserverpkgname],
+    onlyif => $onlyif,
   }
 }
