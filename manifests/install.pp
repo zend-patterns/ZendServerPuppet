@@ -10,11 +10,15 @@ class zendserver::install {
 
   case $::osfamily {
     'Debian' : {
-      include ::zendserver::repo::debian
+      if $zendserver::manage_repos {
+        include ::zendserver::repo::debian
+      }
       include zendserver::install::debian
     }
     'RedHat' : {
-      include ::zendserver::repo::redhat
+      if $zendserver::manage_repos {
+        include ::zendserver::repo::redhat
+      }
       include zendserver::install::redhat
     }
     default  : {
