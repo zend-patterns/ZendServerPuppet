@@ -24,7 +24,7 @@ class zendserver::params {
 
   case $::osfamily {
     'Debian' : { $package_lsbrelease = 'lsb-release' }
-    'RedHat' : { $package_lsbrelease = 'redhat-lsb' }
+    'RedHat' : { $package_lsbrelease = 'redhat-lsb-core' }
     default  : { fail("${module_name} is not supported on ${::osfamily}") }
   }
 }
