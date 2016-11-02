@@ -1,5 +1,6 @@
 # == Class: zendserver::params
-#  Parameters class for the zendserver class. This class should not be included directly in the manifest.
+#  Parameters class for the zendserver class.
+#  This class should not be included directly in the manifest.
 #
 class zendserver::params {
   $accept_eula = true
@@ -15,7 +16,7 @@ class zendserver::params {
   $admin_api_key_secret = undef
   $admin_api_target_name = 'puppet'
   $admin_email = "root@${::fqdn}"
-  $zsurl = "http://localhost:10081"
+  $zsurl = 'http://localhost:10081'
   $create_facts = true
 
   # Make sure that Zend Server is in the path of every exec
@@ -24,7 +25,7 @@ class zendserver::params {
 
   case $::osfamily {
     'Debian' : { $package_lsbrelease = 'lsb-release' }
-    'RedHat' : { $package_lsbrelease = 'redhat-lsb' }
+    'RedHat' : { $package_lsbrelease = 'redhat-lsb-core' }
     default  : { fail("${module_name} is not supported on ${::osfamily}") }
   }
 }
