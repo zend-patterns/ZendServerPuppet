@@ -10,8 +10,6 @@
 # The extension name to load.
 # [*config_file_template*]
 # Location of the erb template to use for the configuration file. See puppet type reference for "File" for valid syntax. (Default: <module_name>/extenstion_config_file.ini.erb - the template supplied with the module).
-# Whether to create a web server vhost to access the app.
-#
 # === Examples
 #
 # zendserver::extension:config_file {'extension': ensure => present, }
