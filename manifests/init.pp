@@ -28,12 +28,25 @@
 # Password for Zend Server database.
 #[*db_schema*]
 # Schema to use for Zend Server (default:'zendserver')
+#[*db_host*]
+# Hostname of the MySQL server for ZS database
 #[*admin_api_key_name*]
-# Zend Server 64 charachter API key to use for interfacing with Zend Server (Default:'admin')
+# Zend Server 64 character API key to use for interfacing with Zend Server (Default:'admin')
 #[*admin_api_key_secret*]
-#  = 'caff756fd7682fa35901afa923822f63771570c25afd5368eaa659f2f71d4d6f',
+# API secret to be used
+#[*admin_api_target_name*]
+# Name of the target to be used (must already exist, see SDK docs)
+#[*create_facts*]
+# Create facts or not
 #[*admin_email*]
 # Email address to which Zend Server will send administrative messages.
+#[*zsurl*]
+# Zend server API address (default = http://localhost:10081)
+#[*default_server*]
+# Default server
+#[*external_url*]
+# External URL
+
 # === Examples
 #
 # class {'zendserver':
@@ -75,7 +88,7 @@ class zendserver (
   $db_host               = undef,
   $admin_api_key_name    = $zendserver::params::admin_api_key_name,
   $admin_api_key_secret  = $zendserver::params::admin_api_key_secret,
-  $admin_api_target_neme = $zendserver::params::admin_api_target_name,
+  $admin_api_target_name = $zendserver::params::admin_api_target_name,
   $create_facts          = $zendserver::params::create_facts,
   $admin_email           = $zendserver::params::admin_email,
   $zsurl                 = $zendserver::params::zsurl,
