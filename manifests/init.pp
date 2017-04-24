@@ -5,11 +5,11 @@
 #[*accept_eula*]
 # Accept Zend Server End User License Agreement (default:true)
 #[*admin_password*]
-# Password for zend server console
+# Password for zend server web console/GUI (admin user)
 #[*manage_repos*]
 # Should the class manage Zend Server repositories (default:true)
 #[*webserver*]
-# Web Server to manage. Valid options:'apache','nginx' (default:'apache')
+# Web Server to install/manage. Valid options:'apache','nginx' (default:'apache')
 #[*phpversion*]
 # PHP version to install. (default:'5.5')
 #[*license_name*]
@@ -31,13 +31,13 @@
 #[*db_host*]
 # Hostname of the MySQL server for ZS database
 #[*admin_api_key_name*]
-# Zend Server 64 character API key to use for interfacing with Zend Server (Default:'admin')
+# API key name to create (username part of the API key)
 #[*admin_api_key_secret*]
-# API secret to be used
+# 64 character secret used to create an API key
 #[*admin_api_target_name*]
 # Name of the target to be used (must already exist, see SDK docs)
 #[*create_facts*]
-# Create facts or not
+# Create facts or not (will send facts in the facter facts dir)
 #[*admin_email*]
 # Email address to which Zend Server will send administrative messages.
 #[*zsurl*]
@@ -97,7 +97,8 @@ class zendserver (
   validate_bool($manage_repos)
   validate_re($webserver, ['\Aapache|nginx\Z',], 'Only apache or nginx are supported.')
   validate_re($phpversion, ['\A5.3|5.4|5.5|5.6|7.0|7.1\Z',], 'Only versions 5.4 to 7.1 are supported.')
-  # TODO: api_key_name + web_api_key_secret are required if join_cluster=true
+  validate_re($admin_api_key_name, ['^\w{5,20}$','api_key_name is required and must be 5-20 characters.'])
+  validate_re($admin_api_key_secret, ['^\w{64}$','api_key_secret is required and must be 64 characters.'])
   anchor { 'zendserver::begin': } ->
   class { '::zendserver::requirements': } ->
   class { '::zendserver::install': } ->
@@ -106,9 +107,12 @@ class zendserver (
   class { '::zendserver::cluster': } ~>
   class { '::zendserver::service': } ->
   anchor { 'zendserver::end': }
-  notify{ "zendserversetup key {$admin_api_key_name}": }
-  notify{ "zendserversetup secret {$admin_api_key_secret}": }
-  notify{ "zendserversetup hash ${zend_api_key_hash}":
+
+# Removing all notifies because it makes unclean puppet runs
+# and it is useless as the api_key_name and secret is mandatory
+#  notify{ "zendserversetup key {$admin_api_key_name}": }
+#  notify{ "zendserversetup secret {$admin_api_key_secret}": }
+#  notify{ "zendserversetup hash ${zend_api_key_hash}":
       require => [
         Service['zend-server'],
         Class['zendserver::bootstrap'],
