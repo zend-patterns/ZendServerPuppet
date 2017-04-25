@@ -113,9 +113,9 @@ class zendserver (
 #  notify{ "zendserversetup key {$admin_api_key_name}": }
 #  notify{ "zendserversetup secret {$admin_api_key_secret}": }
 #  notify{ "zendserversetup hash ${zend_api_key_hash}":
-      require => [
-        Service['zend-server'],
-        Class['zendserver::bootstrap'],
-      ]
-  }
+#      require => [
+#        Service['zend-server'],
+#        Class['zendserver::bootstrap'],
+#      ]
+#  }
 }
