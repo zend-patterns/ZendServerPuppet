@@ -49,7 +49,6 @@ define zendserver::application (
   $cwd           = undef,
 ) {
 
-  notify {"target: ${target}":}
   case $ensure {
     'present', 'deployed'  : {
       zendserver::application::deploy { $name:
