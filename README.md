@@ -1,28 +1,28 @@
-#Zend Server Puppet Module
+# Zend Server Puppet Module
 
-####Table of Contents
+## Table of Contents
 
-1. [Overview](#Overview)
-2. [Module Description](#Module Description)
-3. [Setup](#Setup)
-    * [Components affected by this module](#Components affected by this module)
-    * [Setup requirements](#Setup requirements)
-    * [Getting started](#Getting Started)
-    * [Module Installation](#Module Installation)
-4. [Usage](#Usage)
-5. [Further Reference](#Further Reference)
-5. [Limitations](#Limitations)
-6. [Contributing to this module](#Contributing to this module)
+1. [Overview](#overview)
+2. [Module Description](#module-description)
+3. [Setup](#setup)
+    * [Components affected by this module](#components-affected-by-this-module)
+    * [Setup requirements](#setup-requirements)
+    * [Getting started](#getting-started)
+    * [Module Installation](#module-installation)
+4. [Usage](#usage)
+5. [Further Reference](#further-reference)
+5. [Limitations](#limitations)
+6. [Contributing to this module](#contributing-to-this-module)
 
-##Overview
+## Overview
 The zendserver module allows you to easily manage Zend Server with Puppet.
 
-##Module Description
+## Module Description
 This module installs, "bootstraps" and manages a cluster (or single machine) running Zend Server. Zend Server is an integrated PHP application server for mobile and web apps. Zend Server will also install a web server (apache/nginx) if it is not already installed on your system. Check http://www.zend.com for more information about Zend Server.
 
-##Setup
+## Setup
 
-###Components affected by this module
+### Components affected by this module
 The module downloads and installs:
 
  * Zend Server using the distro's package manager (apt/yum). 
@@ -37,7 +37,7 @@ The module modifies files under the following directories (and sub directories):
  * Apache configuration (/etc/apache2 or /etc/httpd depending on distro).
  * Nginx configuration (if relevant).
  
-###Setup Requirements
+### Setup Requirements
 Operating System:
 
 * RHEL/Centos >=6
@@ -53,7 +53,7 @@ Puppet dependencies:
 
 For a cluster environment also access to a mysql server.
     
-###Getting started
+### Getting started
 If you want to get started quickly you can checkout our [Vagrant testing box](https://github.com/davidl-zend/zendserverpuppet-vagrant). 
 
 This code will:
@@ -73,7 +73,7 @@ You can view and modify the following files to customize the vagrant setup:
  * /data/common.yaml  - This files contains parameters to be passed to puppet on the Vagrant box (using hiera).
  * /manifests/site.pp - Example puppet manifest which uses the zendserver module.
 
-###Module installation
+### Module installation
 
 To manually install the module:
 
@@ -97,17 +97,17 @@ To manually install the module:
 ```
 Alternatively you can use R10K to install the module and dependencies (see the puppet file in the above Vagrant test box for reference.
 
-##Usage
+## Usage
 For reference about the module's public API (classes and resources that should be used) check:
 [Module API reference](doc/API_REFERENCE.md)
 
 You can check the comments in the code for further information.
 
-##Further reference
+## Further reference
 You can check [Zend Server's online help zend-online-help](http://files.zend.com/help/Zend-Server/zend-server.htm) for instructions and more information.
 [R10K Instructions](http://terrarum.net/blog/puppet-infrastructure-with-r10k.html)
 
-##Limitations
+## Limitations
 The module is still under testing - please try it on a non-production system first.
 
   * It is recommended you do not use the module to manage a Zend Server system that was not installed with this module(Such a setup might work but is untested).
@@ -118,8 +118,7 @@ The module is still under testing - please try it on a non-production system fir
   * Support for apache (2.2/2.4) web server (nginx support is untested).
   * The module is not compatible with the puppetlabs/apache module. Do not use both modules to manage the same node (=server). puppetlabs/apache can be used to manage other nodes.
 
-##Contributing to this module
+## Contributing to this module
 If you wish to help our efforts you can open issues in the github repository or contribute code.
 To contribute, please fork the repository and send us a pull-request with your changes using github.
 You can email cloud-paas-dev@zend.com for further questions.
-
