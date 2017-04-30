@@ -1,4 +1,4 @@
-# Zend Server Puppet Module
+ Server Puppet Module
 
 ## Table of Contents
 
@@ -18,7 +18,24 @@
 The zendserver module allows you to easily manage Zend Server with Puppet.
 
 ## Module Description
-This module installs, "bootstraps" and manages a cluster (or single machine) running Zend Server. Zend Server is an integrated PHP application server for mobile and web apps. Zend Server will also install a web server (apache/nginx) if it is not already installed on your system. Check http://www.zend.com for more information about Zend Server.
+On the first run, this module:
+* Installs Zend Server
+* "bootstraps" the installation
+  * Sets the license
+  * Sets the admin and (optional) developer password for the web admin interface
+  * Creates a target
+    * A target is an API key/hash pair that is saved in a file, that allow one to do API calls using only the name of the target (does not send the key/hash pair on the network
+    * The target info (key/hash) is saved in a file, typically $home/.zsapi.ini. However, when using puppet,there is no $HOME, so the file is in /.zsapi.ini (at the root).  This may change in the future.
+* Configures  a cluster (or single machine) running Zend Server.
+  * Sets up a database for the cluster
+* Creates puppet facts about Zend Server
+
+It can also:
+
+* Define or deploy an application
+* ... to be continued
+
+Zend Server is an integrated PHP application server for mobile and web apps. Zend Server will also install a web server (apache/nginx) if it is not already installed on your system. Check http://www.zend.com for more information about Zend Server.
 
 ## Setup
 
