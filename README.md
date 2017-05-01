@@ -71,9 +71,9 @@ Typically, only vendor-supported (LTS, if applicable) versions are supported and
 
 * Zend Server
 Only the [currently supported Zend Server versions](http://www.zend.com/en/support-center/support/php-long-term-support) are supported and tested. Currently:
-  *7.0
-  *8.5
-  *9.1
+  * 7.0
+  * 8.5
+  * 9.1
 
 Puppet dependencies:
 
