@@ -100,7 +100,6 @@ class zendserver (
   validate_re($admin_api_key_name, ['^\w{5,20}$','api_key_name is required and must be 5-20 characters.'])
   validate_re($admin_api_key_secret, ['^\w{64}$','api_key_secret is required and must be 64 characters.'])
   anchor { 'zendserver::begin': } ->
-  class { '::zendserver::requirements': } ->
   class { '::zendserver::install': } ->
   class { '::zendserver::sdk::install': } ->
   class { '::zendserver::bootstrap': } ~>

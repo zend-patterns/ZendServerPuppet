@@ -22,7 +22,7 @@ class zendserver::repo::debian {
 
   case $::operatingsystem {
     'Ubuntu' : {
-      if $::lsbdistrelease + 0 >= 14.04 {
+      if $::operatingsystemrelease + 0 >= 14.04 {
         $zend_repository = "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/deb_apache2.4"
       } else {
         $zend_repository = "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/deb_ssl1.0"
