@@ -2,7 +2,7 @@
 <?php
 error_reporting(E_ERROR);
 
-$zs_api_config_file='/root/.zsapi.ini';
+$zs_api_config_file='/.zsapi.ini';
 $zs_api_target='localadmin';
 $zs_api_config=parse_ini_file($zs_api_config_file, true);
 
