@@ -15,7 +15,7 @@ class zendserver::bootstrap::exec inherits zendserver::bootstrap {
     command => '/usr/local/zend/bin/zs-bootstrap-puppet.sh',
     creates => '/usr/local/zend/tmp/zs-done',
     require => [
-      Service ['zend-server'],    
+      Service['zend-server'],
       File['zs-bootstrap-puppet.sh'],
       File['/usr/local/zend/bin/zs-client.phar'],
       File['zs-puppet-common-functions.sh']],
