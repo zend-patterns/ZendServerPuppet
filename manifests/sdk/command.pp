@@ -35,7 +35,7 @@ define zendserver::sdk::command (
   $zs_version         = $zendserver::zend_server_version,
 ) {
 
- if versioncmp($zs_version, '8.5') >= 0 {
+if versioncmp($zs_version, '8.5') >= 0 {
     $zs_client = '/usr/local/zend/bin/zs-client.sh'
   }
   else {
