@@ -6,7 +6,7 @@ class zendserver::repo::redhat inherits zendserver {
     warning("${name} should not be directly included in the manifest.")
   }
 
- unless ($::osfamily == 'RedHat') and (versioncmp($::operatingsystemrelease, '6.0') >= 0) {
+unless ($::osfamily == 'RedHat') and (versioncmp($::operatingsystemrelease, '6.0') >= 0) {
     fail("OS family ${::osfamily}-${::operatingsystemrelease} is not supported. Only RedHat >= 6 is suppported. RHEL 5 is EOL")
   }
 
