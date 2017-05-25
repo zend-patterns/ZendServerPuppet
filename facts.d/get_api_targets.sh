@@ -1,7 +1,7 @@
 #!/bin/bash
-if [ -f ~/.zsapi.ini ]
+if [ -f /.zsapi.ini ]
 then
-  for i in `grep "\[" ~/.zsapi.ini |sed 's/\[\|\]//g'`
+  for i in `grep "\[" /.zsapi.ini |sed 's/\[\|\]//g'`
     do
       targets+=$i
     done
