@@ -42,7 +42,12 @@ define zendserver::vhost::remove (
       target             => $target,
       api_command        => 'vhostRemove',
       additional_options => $required_options,
+    } ->
+    zendserver::sdk::command { "vhost_reload_${vhostname}_${port}":
+      target      => $target,
+      api_command => 'restartPhp',
     }
+
   } else {
 
   }
