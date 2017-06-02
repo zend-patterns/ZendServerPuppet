@@ -37,8 +37,8 @@ define zendserver::vhost::add (
     default => "--template=${template}"
   }
   $force_create_option     = $force_create ? {
-    ''      => '',
-    default => '--forceCreation=true'
+    'true'      => '--forceCreation=true',
+    default => ''
   }
 
   $additional_options      = "${required_options} ${template_option} ${force_create_option}"

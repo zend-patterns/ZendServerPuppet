@@ -30,10 +30,21 @@
 #
 # Minimalist
 #
-#   zendserver::vhost { 'vhost1':
-#     ensure     => 'present',
-#     vhostname  => 'vhost1',
+#  zendserver::vhost { 'vhost1':
+#    ensure     => 'present',
+#    vhostname  => 'vhost1',
 #  }
+#
+# Delete a vhost
+#
+#  zendserver::vhost { 'vhost1':
+#    ensure     => 'absent',
+#    vhostname  => 'vhost1',
+#  }
+# 
+# Please note that you cannot edit a vhost with this module
+# You must edit it from the Zend Server interface or
+# delete and re-create the vhost using this module
 #
 # Complex - http
 #
@@ -46,10 +57,19 @@
 #     port       => '90',
 #  }
 #
-#   zendserver::vhost { 'vhosttest_89':
-#     ensure     => 'present',
-#     vhostname  => 'vhost1test',
-#     port       => '89',
+#  zendserver::vhost { 'vhosttest_89':
+#    ensure     => 'present',
+#    vhostname  => 'vhost1test',
+#    port       => '89',
+#  }
+# 
+# Using a specific template
+# Note: the template must already exist on the puppet client
+#
+#  zendserver::vhost { 'vhost2':
+#    ensure        => 'present',
+#    vhostname     => 'vhost2',
+#    template      => '/usr/local/zend/share/vhost_puppet_test.tpl',
 #  }
 
 define zendserver::vhost (
