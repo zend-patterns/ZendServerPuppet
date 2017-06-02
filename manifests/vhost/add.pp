@@ -38,7 +38,7 @@ define zendserver::vhost::add (
   }
   $force_create_option     = $force_create ? {
     ''      => '',
-    default => "--forceCreation=true"
+    default => '--forceCreation=true'
   }
 
   $additional_options      = "${required_options} ${template_option} ${force_create_option}"
@@ -55,10 +55,10 @@ define zendserver::vhost::add (
       target             => $target,
       api_command        => 'vhostAdd',
       additional_options => $additional_options,
-    }
+    } ->
     zendserver::sdk::command { "vhost_reload_${vhostname}_${port}":
-      target             => $target,
-      api_command        => 'restartPhp',
+      target      => $target,
+      api_command => 'restartPhp',
     }
   }
 }
