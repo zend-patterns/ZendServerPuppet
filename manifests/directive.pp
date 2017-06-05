@@ -5,15 +5,18 @@
 # Desired value for the directive. For example: on or 10M. Required.
 # === Examples
 #
-# Minimalist
+# Boolean: 0 (off) or 1 (on)
 #
 #  zendserver::directive { 'allow_url_include':
-#    directive_value  => 'on',
+#    directive_value  => '0',
 #  }
 #
 #  zendserver::directive { 'upload_max_filesize':
 #    directive_value  => '20M',
 #  }
+#
+# Todo: paths
+# Todo: other types?
 
 define zendserver::directive (
   $directive_value,
