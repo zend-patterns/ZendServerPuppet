@@ -49,12 +49,6 @@ define zendserver::application (
   $cwd           = undef,
 ) {
 
-  # Notifies if the bootstrap is not complete
-
-  if str2bool($::zend_gui_completed) != true {
-    notify {"You will see error messages if the application settings are applied before the bootstrap is complete. If it's the case, just run puppet again.": }
-  }
-
   case $ensure {
     'present', 'deployed'  : {
       zendserver::application::deploy { $name:

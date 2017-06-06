@@ -33,6 +33,7 @@ define zendserver::sdk::command (
   $try_sleep          = 5,
   $cwd                = undef,
   $zs_version         = $zendserver::zend_server_version,
+  $onlyif             = [],
 ) {
 
 if versioncmp($zs_version, '8.5') >= 0 {
@@ -51,6 +52,7 @@ if versioncmp($zs_version, '8.5') >= 0 {
       command   => "${zs_client} ${api_command} --target=${target} ${additional_options} ",
       logoutput => true,
       require => File['/usr/local/zend/bin/zs-client.phar'],
+      onlyif => $onlyif,
     }
   } else {
     exec { "zsapi_${name}":
