@@ -36,7 +36,7 @@ define zendserver::vhost::remove (
     # Get application id from facter
     $vhost_id           = getvar("::zend_vhost_id_${vhostname}_${port}")
 
-    $required_options = "--vhosts==${vhost_id}"
+    $required_options = "--vhosts=${vhost_id}"
 
     zendserver::sdk::command { "vhost_remove_${vhostname}_${port}":
       target             => $target,
