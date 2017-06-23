@@ -11,8 +11,9 @@
     * [Module Installation](#module-installation)
 4. [Usage](#usage)
 5. [Further Reference](#further-reference)
-5. [Limitations](#limitations)
-6. [Contributing to this module](#contributing-to-this-module)
+6. [Limitations](#limitations)
+7. [Troubleshooting](#troubleshooting)
+8. [Contributing to this module](#contributing-to-this-module)
 
 ## Overview
 The zendserver module allows you to easily manage Zend Server with Puppet.
@@ -146,6 +147,14 @@ The module is still under testing - please try it on a non-production system fir
   * Before installing Zend Server for use with Nginx, define the nginx repository: http://nginx.org/en/linux_packages.html#stable. (Without this installation of zend server will fail)
   * The module does not add /usr/local/zend/bin to the search path - you might want to do it yourself.
   * The module is not compatible with the puppetlabs/apache module. Do not use both modules to manage the same node (=server). puppetlabs/apache can be used to manage other nodes.
+
+## Troubleshooting
+Log output is disabled by default. You may enable it back for debugging purposes:
+```
+-      logoutput => false,
++      logoutput => true,
+```
+in `manifests/sdk/command.pp`
 
 ## Contributing to this module
 If you wish to help our efforts you can open issues in the github repository or contribute code.
