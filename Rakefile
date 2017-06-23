@@ -60,6 +60,6 @@ task :test => [
   :rubocop,
   :syntax,
   :lint,
-  :metadata_lint,
+#  :metadata_lint,
   :spec
 ]
