@@ -16,12 +16,12 @@
 define zendserver::sdk::target ($zskey,
                                 $zssecret,
                                 $target=$name,
-                                $zsurl="${zendserver::zsurl}",
+                                $zsurl=$zendserver::zsurl,
                                 $zsversion='8.0'){
   #TODO: replace the exec with a file or ini_file type
   exec {"add-target-${name}":
-    command     => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar addTarget --target=${target} --zskey=${zskey} --zssecret=${zssecret}",
-    require     => File['/usr/local/zend/bin/zs-client.phar'],
-    unless      => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar getSystemInfo --target=${target}",
+    command => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar addTarget --target=${target} --zskey=${zskey} --zssecret=${zssecret}",
+    require => File['/usr/local/zend/bin/zs-client.phar'],
+    unless  => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar getSystemInfo --target=${target}",
   }
 }

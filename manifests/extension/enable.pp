@@ -7,9 +7,6 @@ define zendserver::extension::enable (
 
   $extension_status_fact       = getvar("::zend_extension_status_${name}")
 
-# Debugging
-#  notify {"extension_status_fact is $extension_status_fact":}
-
   # Check if application is deployed by using facter
   if $extension_status_fact != 'Loaded' {
 

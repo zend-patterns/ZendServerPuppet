@@ -5,6 +5,6 @@ define zendserver::zsmanage::target (
   $zskey,
   $zssecret,
   $target = $name,
-  $zsurl = "${zendserver::zsurl}",) {
+  $zsurl = $zendserver::zsurl,) {
   # TODO: replace the exec with a file or ini_file type
 }

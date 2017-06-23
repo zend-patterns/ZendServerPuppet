@@ -18,7 +18,7 @@ class zendserver::repo::debian {
   #
   #  For Ubuntu 14.04 and above, use:
   #  deb http://repos.zend.com/zend-server/8.0/deb_apache2.4 server non-free
-  notify { "server: {$::operatingsystemmajrelease}": }
+  notify { "server: ${::operatingsystemmajrelease}": }
 
   case $::operatingsystem {
     'Ubuntu' : {

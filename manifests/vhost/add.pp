@@ -23,7 +23,7 @@
 
 define zendserver::vhost::add (
   $target,
-  $vhostname               = $vhostname,
+  $downcase_vhostname,
   $port                    = $port,
   $secure                  = $secure,
   $sslCertificatePath      = $sslCertificatePath,
@@ -31,13 +31,13 @@ define zendserver::vhost::add (
   $sslCertificateChainPath = $sslCertificateChainPath,
   $template                = $template,
   $force_create            = $force_create,) {
-  $required_options        = "--name=${vhostname} --port=${port}"
+  $required_options        = "--name=${downcase_vhostname} --port=${port}"
   $template_option         = $template ? {
     ''      => '',
     default => "--template=${template}"
   }
   $force_create_option     = $force_create ? {
-    'true'      => '--forceCreation=true',
+    true      => '--forceCreation=true',
     default => ''
   }
 
@@ -45,18 +45,18 @@ define zendserver::vhost::add (
   $secure_options          = "--sslCertificatePath=${sslCertificatePath} --sslCertificateKeyPath=${sslCertificateKeyPath}"
 
 # ${name}_${port} is required to make the vhost unique. Many vhosts can have the same name if they run on different ports.
-  $vhost_name_fact       = getvar("::zend_vhost_name_${vhostname}_${port}")
+  $vhost_name_fact       = getvar("::zend_vhost_name_${downcase_vhostname}_${port}")
 
 #Check if vhost exists by using facter
   if $vhost_name_fact != undef {
 
   } else {
-    zendserver::sdk::command { "vhost_add_${vhostname}_${port}":
+    zendserver::sdk::command { "vhost_add_${downcase_vhostname}_${port}":
       target             => $target,
       api_command        => 'vhostAdd',
       additional_options => $additional_options,
     } ->
-    zendserver::sdk::command { "vhost_reload_${vhostname}_${port}":
+    zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
       target      => $target,
       api_command => 'restartPhp',
     }

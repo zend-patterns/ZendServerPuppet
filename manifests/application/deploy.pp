@@ -17,8 +17,8 @@ define zendserver::application::deploy (
   $target,
   $app_package,
   $base_url,
-  $user_app_name = $name,
-  $create_vhost  = 'true',
+  $user_app_name,
+  $create_vhost  = true,
   $user_params   = '',
   $cwd           = undef,
 ) {

@@ -7,7 +7,7 @@ class zendserver::bootstrap::zsmanage inherits zendserver::bootstrap {
 
   #Check if Zend Server is already bootstrapped.
   #The zend_gui_completed fact is a string and not a boolean.
-  if $::zend_gui_completed != 'true' {
+  if $::zend_gui_completed != true {
     #Check if license details were passed to Class['zendserver']
     if defined('$zendserver::license_name') {
       $license = "-o ${zendserver::license_name} -l ${zendserver::license_key}"

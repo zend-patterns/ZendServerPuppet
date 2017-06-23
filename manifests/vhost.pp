@@ -1,5 +1,10 @@
 # == Definition: zendserver::vhost
 #   Deploy or define a Zend Server virtual host. 
+#
+# Note: Due to the way puppet exposes facts, virtual host names are case insensitive
+# Therefore, if you try to create two vhosts: potato and Potato, Puppet
+# will tell you there is a duplicate
+#
 # === Parameters
 # [*ensure*]
 # present or absent, required.
@@ -90,7 +95,7 @@ define zendserver::vhost (
       zendserver::vhost::add { $name:
         target                  => $target,
         port                    => $port,
-        vhostname               => $vhostname,
+        downcase_vhostname      => downcase($vhostname),
         secure                  => $secure,
         sslCertificatePath      => $sslCertificatePath,
         sslCertificateKeyPath   => $sslCertificateKeyPath,
@@ -103,10 +108,11 @@ define zendserver::vhost (
       zendserver::vhost::remove { $name:
         target        => $target,
         port          => $port,
-        vhostname     => $vhostname,
+        downcase_vhostname     => downcase($vhostname),
       }
     }
     default                : {
+    fail ("ensure can only be present or absent for ${name}")
     }
   }
 }
