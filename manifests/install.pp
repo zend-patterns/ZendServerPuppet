@@ -27,7 +27,7 @@ class zendserver::install {
   }
 
   # TODO:if api_key was not specified then save Zend Server API key as a fact.
-  package { $zendserverpkgname: ensure => 'latest', }
+  package { $zendserverpkgname: ensure => 'present', }
 
   file { '/usr/local/zend':
     ensure  => directory,
