@@ -9,7 +9,7 @@
 
 define zendserver::vhost::remove (
   $target,
-  $vhostname               = $vhostname,
+  $downcase_vhostname,
   $port                    = $port,
   $secure                  = $secure,
   $sslCertificatePath      = $sslCertificatePath,
@@ -19,31 +19,21 @@ define zendserver::vhost::remove (
   $force_create            = $force_create,) {
 
 # ${name}_${port} is required to make the vhost unique. Many vhosts can have the same name if they run on different ports
-  $vhost_name_fact       = getvar("::zend_vhost_name_${vhostname}_${port}")
-
-#Debug
-#  notify{ "name: ${name}": }
-#  notify{ "port: ${port}": }
-#  notify{ "vhost_name-fact: ${vhost_name_fact}": }
-#  notify{ "vhostname: ${vhostname}": }
-#  notify{ "secure: ${secure}": }
-#  notify{ "target: ${target}": }
-
-
+  $vhost_name_fact       = getvar("::zend_vhost_name_${downcase_vhostname}_${port}")
 
   # Check if application is deployed by using facter
   if $vhost_name_fact != undef {
     # Get application id from facter
-    $vhost_id           = getvar("::zend_vhost_id_${vhostname}_${port}")
+    $vhost_id           = getvar("::zend_vhost_id_${downcase_vhostname}_${port}")
 
     $required_options = "--vhosts=${vhost_id}"
 
-    zendserver::sdk::command { "vhost_remove_${vhostname}_${port}":
+    zendserver::sdk::command { "vhost_remove_${downcase_vhostname}_${port}":
       target             => $target,
       api_command        => 'vhostRemove',
       additional_options => $required_options,
     } ->
-    zendserver::sdk::command { "vhost_reload_${vhostname}_${port}":
+    zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
       target      => $target,
       api_command => 'restartPhp',
     }

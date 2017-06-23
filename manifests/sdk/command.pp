@@ -51,8 +51,8 @@ if versioncmp($zs_version, '8.5') >= 0 {
       try_sleep => $try_sleep,
       command   => "${zs_client} ${api_command} --target=${target} ${additional_options} ",
       logoutput => false,
-      require => File['/usr/local/zend/bin/zs-client.phar'],
-      onlyif => $onlyif,
+      require   => File['/usr/local/zend/bin/zs-client.phar'],
+      onlyif    => $onlyif,
     }
   } else {
     exec { "zsapi_${name}":
@@ -62,7 +62,7 @@ if versioncmp($zs_version, '8.5') >= 0 {
       try_sleep => $try_sleep,
       command   => "${zs_client} ${api_command} --target=${target} ${additional_options} ",
       logoutput => true,
-      require => File['/usr/local/zend/bin/zs-client.phar'],
+      require   => File['/usr/local/zend/bin/zs-client.phar'],
     }
   }
 

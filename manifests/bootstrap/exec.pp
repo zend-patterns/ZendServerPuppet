@@ -20,4 +20,11 @@ class zendserver::bootstrap::exec inherits zendserver::bootstrap {
       File['/usr/local/zend/bin/zs-client.phar'],
       File['zs-puppet-common-functions.sh']],
   }
+
+  file { '/root/.zsapi.ini':
+    ensure  => 'link',
+    target  => '/.zsapi.ini',
+    require => Exec['zend-server-init'],
+  }
+
 }

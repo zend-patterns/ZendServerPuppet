@@ -1,5 +1,9 @@
 # == Definition: zendserver::directive
 #   Define a php configuration value (directives)
+#
+# Note: Due to the way puppet exposes facts, directive names are case insensitive
+# in this module
+#
 # === Parameters
 # [*directive_value*]
 # Desired value for the directive. For example: on or 10M. Required.
@@ -20,19 +24,26 @@
 
 define zendserver::directive (
   $directive_value,
-  $target                   = 'localadmin',
+  $target             = 'localadmin',
+  $downcase_name    = downcase($name),
 ) {
 
-  zendserver::sdk::command { "directive_${name}":
-    target             => $target,
-    api_command        => 'configurationStoreDirectives',
-    additional_options => "--directives=\"${name}=${directive_value}\"",
-    onlyif             => "/usr/local/zend/bin/zs-client.sh configurationDirectivesList --target=${target} --filter=${name} | grep fileValue | grep -qiv \'\[CDATA\[${directive_value}\]\]\'",
-  } ->
-  zendserver::sdk::command { "directive_reload_${name}":
-    target      => $target,
-    api_command => 'restartPhp',
-    onlyif      => "/usr/local/zend/bin/zs-client.sh configurationDirectivesList --target=${target} --filter=${name} | grep fileValue | grep -qiv \'\[CDATA\[${directive_value}\]\]\'",
-  }
+# It looks like facts are returned all lowercase, so I use zend_directive_filevalue
+# instead of zend_directive_fileValue (fileValue is the real format).
 
+  $directive_value_fact       = getvar("::zend_directive_filevalue_${downcase_name}")
+
+  # Check if application is deployed by using facter
+  if $directive_value_fact != $directive_value {
+  
+    zendserver::sdk::command { "directive_change_${downcase_name}":
+      target             => $target,
+      api_command        => 'configurationStoreDirectives',
+      additional_options => "--directives=\"${name}=${directive_value}\"",
+    } ->
+    zendserver::sdk::command { "directive_change_reload_${downcase_name}":
+      target      => $target,
+      api_command => 'restartPhp',
+    }
+  }
 }
