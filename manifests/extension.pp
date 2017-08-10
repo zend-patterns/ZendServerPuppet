@@ -13,14 +13,14 @@
 #
 # Enable
 #
-#  zendserver::extension { 'sqlite':
-#  enabled         => 'true',
+#  zendserver::extension { 'ssh2':
+#  enabled         => true,
 #  }
 #
 # Disable
 #
-#  zendserver::extension { 'sqlite':
-#  enabled         => 'false',
+#  zendserver::extension { 'ssh2':
+#  enabled         => false,
 #  }
 # 
 
