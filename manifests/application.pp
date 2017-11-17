@@ -113,7 +113,7 @@ define zendserver::application (
       }
     }
     default                : {
-    fail ("ensure can only be present, deployed, defined, absent, undeployed, or latest for ${name}")
+      fail ("ensure can only be present, deployed, defined, absent, undeployed, or latest for ${name}")
     }
   }
 }

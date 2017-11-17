@@ -1,5 +1,6 @@
 # == Define: zendserver::application::update
-# Update an application using the Zend Server SDK (zs-client.phar). This is an internal definition and should not be called directly by a user.
+# Update an application using the Zend Server SDK (zs-client.phar).
+# This is an internal definition and should not be called directly by a user.
 # === Parameters
 # [*target]
 # Zend Server SDK target from which to remove the application.
