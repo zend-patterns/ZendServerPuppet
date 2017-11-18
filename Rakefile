@@ -1,62 +1,36 @@
-require 'rubygems' if RUBY_VERSION < '1.9.0'
-# require 'rubocop/rake_task'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
-require 'puppet-syntax/tasks/puppet-syntax'
-# require 'metadata-json-lint/rake_task'
+require 'metadata-json-lint/rake_task'
 
-# RuboCop::RakeTask.new
-
-exclude_paths = [
-  'modules/**/*',
-  'pkg/**/*',
-  'spec/**/*',
-  'vendor/**/*'
-]
-
-# Puppet-Lint 1.1.0
-Rake::Task[:lint].clear
-PuppetLint::RakeTask.new :lint do |config|
-  config.ignore_paths = exclude_paths
-  config.disable_checks = %w([class_inherits_from_params_class] [80chars])
-  config.fail_on_warnings = true
+if RUBY_VERSION >= '1.9'
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
 end
-# Puppet-Lint 1.1.0 as well ...
-PuppetLint.configuration.send('disable_140chars')
+
+if not ENV['SPEC_OPTS']
+  ENV['SPEC_OPTS'] = '--format documentation'
+end
+
+PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.relative = true
-PuppetSyntax.exclude_paths = exclude_paths
+PuppetLint.configuration.ignore_paths = ['spec/**/*.pp', 'pkg/**/*.pp']
 
-Rake::Task[:default].prerequisites.clear
-task :default => :all
-
-desc 'Run acceptance tests'
-RSpec::Core::RakeTask.new(:acceptance) do |t|
-  t.pattern = 'spec/acceptance'
+desc 'Validate manifests, templates, and ruby files'
+task :validate do
+  Dir['manifests/**/*.pp'].each do |manifest|
+    sh "puppet parser validate --noop #{manifest}"
+  end
+  Dir['spec/**/*.rb', 'lib/**/*.rb'].each do |ruby_file|
+    sh "ruby -c #{ruby_file}" unless ruby_file =~ %r{spec/fixtures}
+  end
+  Dir['templates/**/*.erb'].each do |template|
+    sh "erb -P -x -T '-' #{template} | ruby -c"
+  end
 end
 
-desc 'Run RuboCop'
-task :rubocop do
-  sh 'rubocop'
+desc 'Run metadata_lint, lint, validate, and spec tests.'
+task :test do
+  [:metadata_lint, :lint, :validate, :spec].each do |test|
+    Rake::Task[test].invoke
+  end
 end
-
-desc 'Clean up modules / pkg'
-task :clean do
-  sh 'rm -rf modules pkg spec/fixtures'
-end
-
-task :success do
-  puts "\n\e[32mAll tests passing...\e[0m"
-end
-
-desc 'Run all'
-task :all => %i[
-  :clean,
-  :test,
-  :success
-]
-
-desc 'Run rubocop, syntax, lint, and spec tests'
-task :test => %i[
-  :lint,
-  :spec
-]
