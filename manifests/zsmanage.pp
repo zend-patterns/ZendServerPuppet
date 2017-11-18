@@ -24,7 +24,7 @@ define zendserver::zsmanage (
   $zssecret,
   $http_timeout       = 60,
   $additional_options = '',
-  $zsurl              =  ${zendserver::zsurl},
+  $zsurl              = $zendserver::zsurl,
   $onlyif             = [],) {
   exec { "zsmanage_${name}":
     command => "/usr/local/zend/bin/zs-manage ${command} -N ${zskey} -K ${zssecret} -T ${http_timeout} ${additional_options}",
