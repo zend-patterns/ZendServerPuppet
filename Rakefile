@@ -49,14 +49,14 @@ task :success do
 end
 
 desc 'Run all'
-task :all => [
+task :all => %i[
   :clean,
   :test,
   :success
 ]
 
 desc 'Run rubocop, syntax, lint, and spec tests'
-task :test => [
+task :test => %i[
   :rubocop,
   :syntax,
   :lint,
