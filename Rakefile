@@ -57,7 +57,6 @@ task :all => %i[
 
 desc 'Run rubocop, syntax, lint, and spec tests'
 task :test => %i[
-  :syntax,
   :lint,
   :spec
 ]
