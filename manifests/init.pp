@@ -99,13 +99,13 @@ class zendserver (
   validate_re($phpversion, ['\A5.3|5.4|5.5|5.6|7.0|7.1\Z',], 'Only versions 5.4 to 7.1 are supported.')
   validate_re($admin_api_key_name, ['^\w{5,20}$','api_key_name is required and must be 5-20 characters.'])
   validate_re($admin_api_key_secret, ['^\w{64}$','api_key_secret is required and must be 64 characters.'])
-  anchor { 'zendserver::begin': } ->
-  class { '::zendserver::install': } ->
-  class { '::zendserver::sdk::install': } ->
-  class { '::zendserver::bootstrap': } ~>
-  class { '::zendserver::cluster': } ~>
-  class { '::zendserver::service': } ->
-  anchor { 'zendserver::end': }
+  anchor { 'zendserver::begin': }
+  -> class { '::zendserver::install': }
+  -> class { '::zendserver::sdk::install': }
+  -> class { '::zendserver::bootstrap': }
+  ~> class { '::zendserver::cluster': }
+  ~> class { '::zendserver::service': }
+  -> anchor { 'zendserver::end': }
 
 # Removing all notifies because it makes unclean puppet runs
 # and it is useless as the api_key_name and secret is mandatory

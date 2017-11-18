@@ -15,7 +15,6 @@ unless ($::osfamily == 'RedHat') and (versioncmp($::operatingsystemrelease, '6.0
     /^6.*$/ => 'rpm',
     /^7.*$/ => 'rpm_apache2.4',
   }
-    
 
   yumrepo { 'Zend':
     baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/${rpmdir}/${::architecture}",
