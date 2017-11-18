@@ -106,9 +106,9 @@ define zendserver::vhost (
     }
     'absent' : {
       zendserver::vhost::remove { $name:
-        target                  => $target,
-        port                    => $port,
-        downcase_vhostname      => downcase($vhostname),
+        target             => $target,
+        port               => $port,
+        downcase_vhostname => downcase($vhostname),
       }
     }
     default                : {
