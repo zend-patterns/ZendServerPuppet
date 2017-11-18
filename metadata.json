@@ -33,7 +33,7 @@
   	}
   ],
   "description": "Install and manage Zend Server",
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "name": "zend-zendserver",
   "project_page": "http://www.zend.com/en/products/server",
   "source": "https://github.com/zend-patterns/ZendServerPuppet.git",
