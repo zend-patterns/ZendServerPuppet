@@ -25,7 +25,7 @@ group :unit_tests do
   gem 'puppet-lint-version_comparison-check',                      :require => false
   gem 'puppetlabs_spec_helper',                                    :require => false
   gem 'rspec-puppet-facts',                                        :require => false
- # gem 'rubocop', '~> 0.41.2',                                      :require => false if RUBY_VERSION =~ /^1\.9/
+# gem 'rubocop', '~> 0.41.2',                                      :require => false if RUBY_VERSION =~ /^1\.9/
   gem 'rubocop',                                                   :require => false if RUBY_VERSION =~ /^2\./
 end
 
@@ -37,9 +37,7 @@ end
 
 group :system_tests do
   if RUBY_VERSION < '2.2.5'
-    # beaker 3.1+ requires ruby 2.2.5.  Lock to 2.0
     gem 'beaker', '~> 2.0', :require => false
-    # beaker-rspec 6.0.0 requires beaker 3.0. Lock to 5.0
 #    gem 'beaker-rspec', '~> 5.0', :require => false
   else
     gem 'beaker-rspec', :require => false
@@ -54,14 +52,10 @@ gem 'json_pure', '<= 2.0.1', :require => false if RUBY_VERSION =~ /^1\./
 
 if (facterversion = ENV['FACTER_GEM_VERSION'])
   gem 'facter', facterversion, :require => false
-else
-#  gem 'facter', :require => false
 end
 
 if (puppetversion = ENV['PUPPET_GEM_VERSION'])
   gem 'puppet', puppetversion, :require => false
-else
-  gem 'puppet', '~> 3.8', :require => false
 end
 
 # vim:ft=ruby
