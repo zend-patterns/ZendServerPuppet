@@ -61,7 +61,7 @@ if versioncmp($zs_version, '8.5') >= 0 {
       cwd       => $cwd,
       try_sleep => $try_sleep,
       command   => "${zs_client} ${api_command} --target=${target} ${additional_options} ",
-      logoutput => true,
+      logoutput => false,
       require   => File['/usr/local/zend/bin/zs-client.phar'],
     }
   }
