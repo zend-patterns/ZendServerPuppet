@@ -98,8 +98,8 @@ define zendserver::vhost (
         downcase_vhostname      => downcase($vhostname),
         secure                  => $secure,
         sslcertificatepath      => $sslcertificatepath,
-        sslcertificatekeyPath   => $sslcertificatekeypath,
-        sslcertificateChainPath => $sslcertificatechainpath,
+        sslcertificatekeypath   => $sslcertificatekeypath,
+        sslcertificatechainpath => $sslcertificatechainpath,
         template                => $template,
         force_create            => $force_create,
       }
