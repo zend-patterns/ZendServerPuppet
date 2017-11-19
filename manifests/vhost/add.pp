@@ -30,7 +30,7 @@ define zendserver::vhost::add (
   $sslcertificatekeypath   = $sslcertificatekeypath,
   $sslcertificatechainpath = $sslcertificatechainpath,
   $template                = $template,
-  $force_create            = $force_create,){ 
+  $force_create            = $force_create,){
   $required_options        = "--name=${downcase_vhostname} --port=${port}"
   if $template != undef {
     $template_option = "--template=${template}"
