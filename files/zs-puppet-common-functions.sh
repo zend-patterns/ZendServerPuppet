@@ -47,8 +47,8 @@ function create_zs_client_target () {
 function get_web_api_key_from_file {
   if [ -f $BOOTSTRAP_OUTPUT_FILE ]
   then
-    WEB_API_KEY=`head -1 $BOOTSTRAP_OUTPUT_FILE | cut -f1`
-    WEB_API_KEY_HASH=`head -1 $BOOTSTRAP_OUTPUT_FILE | cut -f2`
+    WEB_API_KEY=`head -1 $BOOTSTRAP_OUTPUT_FILE | tr "[:blank:]" " " | tr -s "[:blank:]" | cut -d' ' -f1`
+    WEB_API_KEY_HASH=`head -1 $BOOTSTRAP_OUTPUT_FILE | tr "[:blank:]" " " | tr -s "[:blank:]" | cut -d' ' -f2`
   fi
 
   #Check if web api key was actually created
