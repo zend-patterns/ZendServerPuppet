@@ -16,8 +16,7 @@
 # [*logo*]
 # Path to a local file on the server holding the library's logo (for displaying in the Zend Server console).
 # It is advised you add a puppet "File" resource for the logo file and "require" it.
-# TODO:auto require lib_package
-# TODO:automatically repair broken libraries (according to status and notifications)
+
 define zendserver::library (
   $ensure,
   $target          = 'localadmin',
