@@ -15,7 +15,26 @@ function create_facts () {
 
 #Bootstrap Zend Server in single server mode using zs-manage
 function zs_manage_bootstrap_single () {
-  /usr/local/zend/bin/zs-manage bootstrap-single-server -p $ADMIN_PASSWORD -o $ORDER_NUMBER -l $LICENSE_KEY -a TRUE > /usr/local/zend/tmp/zs-done
+  set -o pipefail
+  OUTPUT="$(/usr/local/zend/bin/zs-manage bootstrap-single-server -p $ADMIN_PASSWORD -o $ORDER_NUMBER -l $LICENSE_KEY -a TRUE 2>&1 > /usr/local/zend/tmp/zs-done)"
+  RESULT="$?"
+  if [ "$RESULT" -ne 0 ]; then
+    # check for existing bootstrap
+    grep -q "already bootstrapped" <<< "$OUTPUT"
+    if [ "$?" -eq 0 ]; then
+      echo "$OUTPUT"
+      echo "Retreiving and setting admin api key from current installation"
+      API_KEY=$(sqlite3 /usr/local/zend/var/db/gui.db "select HASH from GUI_WEBAPI_KEYS where NAME='admin';")
+      echo "admin   $API_KEY" > /usr/local/zend/tmp/zs-done 
+      RESULT=0 # allow puppet to continue
+    else
+      echo "$OUTPUT"
+      echo "Bootstrap command failed, removing invalid /usr/local/zend/tmp/zs-done"
+      rm /usr/local/zend/tmp/zs-done
+    fi
+  fi
+  set +o pipefail
+  return $RESULT
 }
 
 function zs_manage_join_cluster () {
@@ -47,8 +66,8 @@ function create_zs_client_target () {
 function get_web_api_key_from_file {
   if [ -f $BOOTSTRAP_OUTPUT_FILE ]
   then
-    WEB_API_KEY=`head -1 $BOOTSTRAP_OUTPUT_FILE | cut -f1`
-    WEB_API_KEY_HASH=`head -1 $BOOTSTRAP_OUTPUT_FILE | cut -f2`
+    WEB_API_KEY=`head -1 $BOOTSTRAP_OUTPUT_FILE | tr "[:blank:]" " " | tr -s "[:blank:]" | cut -d' ' -f1`
+    WEB_API_KEY_HASH=`head -1 $BOOTSTRAP_OUTPUT_FILE | tr "[:blank:]" " " | tr -s "[:blank:]" | cut -d' ' -f2`
   fi
 
   #Check if web api key was actually created
