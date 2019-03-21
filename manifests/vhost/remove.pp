@@ -12,9 +12,9 @@ define zendserver::vhost::remove (
   $downcase_vhostname,
   $port                    = $port,
   $secure                  = $secure,
-  $sslCertificatePath      = $sslCertificatePath,
-  $sslCertificateKeyPath   = $sslCertificateKeyPath,
-  $sslCertificateChainPath = $sslCertificateChainPath,
+  $sslcertificatepath      = $sslcertificatepath,
+  $sslcertificatekeypath   = $sslcertificatekeypath,
+  $sslcertificatechainpath = $sslcertificatechainpath,
   $template                = $template,
   $force_create            = $force_create,) {
 
@@ -32,8 +32,8 @@ define zendserver::vhost::remove (
       target             => $target,
       api_command        => 'vhostRemove',
       additional_options => $required_options,
-    } ->
-    zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
+    }
+    -> zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
       target      => $target,
       api_command => 'restartPhp',
     }

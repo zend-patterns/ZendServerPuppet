@@ -14,8 +14,8 @@ define zendserver::extension::enable (
       target             => $target,
       api_command        => 'configurationExtensionsOn',
       additional_options => "--extensions=\"${name}\"",
-    } ->
-    zendserver::sdk::command { "extension_enable_reload_${name}":
+    }
+    -> zendserver::sdk::command { "extension_enable_reload_${name}":
       target      => $target,
       api_command => 'restartPhp',
     }

@@ -25,9 +25,9 @@ define zendserver::application::define (
   $version       = '1.0',
   $health_check  = undef,
   $logo          = '',
-  )
+)
 
-  {
+{
   $required_options    = "--name=${user_app_name} --baseUrl=${base_url} --version=${version}"
   $logo_option         = $logo ? {
     ''      => '',

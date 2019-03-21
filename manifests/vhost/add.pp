@@ -26,15 +26,14 @@ define zendserver::vhost::add (
   $downcase_vhostname,
   $port                    = $port,
   $secure                  = $secure,
-  $sslCertificatePath      = $sslCertificatePath,
-  $sslCertificateKeyPath   = $sslCertificateKeyPath,
-  $sslCertificateChainPath = $sslCertificateChainPath,
+  $sslcertificatepath      = $sslcertificatepath,
+  $sslcertificatekeypath   = $sslcertificatekeypath,
+  $sslcertificatechainpath = $sslcertificatechainpath,
   $template                = $template,
-  $force_create            = $force_create,) {
+  $force_create            = $force_create,){
   $required_options        = "--name=${downcase_vhostname} --port=${port}"
-  $template_option         = $template ? {
-    ''      => '',
-    default => "--template=${template}"
+  if $template != undef {
+    $template_option = "--template=${template}"
   }
   $force_create_option     = $force_create ? {
     true      => '--forceCreation=true',
@@ -42,21 +41,20 @@ define zendserver::vhost::add (
   }
 
   $additional_options      = "${required_options} ${template_option} ${force_create_option}"
-  $secure_options          = "--sslCertificatePath=${sslCertificatePath} --sslCertificateKeyPath=${sslCertificateKeyPath}"
+  $secure_options          = "--sslcertificatepath=${sslcertificatepath} --sslcertificatekeypath=${sslcertificatekeypath}"
 
 # ${name}_${port} is required to make the vhost unique. Many vhosts can have the same name if they run on different ports.
   $vhost_name_fact       = getvar("::zend_vhost_name_${downcase_vhostname}_${port}")
 
 #Check if vhost exists by using facter
   if $vhost_name_fact != undef {
-
   } else {
     zendserver::sdk::command { "vhost_add_${downcase_vhostname}_${port}":
       target             => $target,
       api_command        => 'vhostAdd',
       additional_options => $additional_options,
-    } ->
-    zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
+    }
+    -> zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
       target      => $target,
       api_command => 'restartPhp',
     }

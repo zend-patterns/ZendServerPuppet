@@ -2,7 +2,7 @@
 #  Bootstrap single server if the fact zend_gui.completed is not true
 #  Use the zsmanage tool
 class zendserver::bootstrap::zsmanage inherits zendserver::bootstrap {
-    # TODO:if api_key was not specified then save Zend Server API key as a fact.
+  # TODO:if api_key was not specified then save Zend Server API key as a fact.
   $options = "-p ${zendserver::admin_password} -a ${zendserver::accept_eula}"
 
   #Check if Zend Server is already bootstrapped.

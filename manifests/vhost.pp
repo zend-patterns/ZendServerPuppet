@@ -83,9 +83,9 @@ define zendserver::vhost (
   $target                   = 'localadmin',
   $port                     = 80,
   $secure                   = false,
-  $sslCertificatePath       = undef,
-  $sslCertificateKeyPath    = undef,
-  $sslCertificateChainPath  = undef,
+  $sslcertificatepath       = undef,
+  $sslcertificatekeypath    = undef,
+  $sslcertificatechainpath  = undef,
   $template                 = undef,
   $force_create             = false,
 ) {
@@ -97,18 +97,18 @@ define zendserver::vhost (
         port                    => $port,
         downcase_vhostname      => downcase($vhostname),
         secure                  => $secure,
-        sslCertificatePath      => $sslCertificatePath,
-        sslCertificateKeyPath   => $sslCertificateKeyPath,
-        sslCertificateChainPath => $sslCertificateChainPath,
+        sslcertificatepath      => $sslcertificatepath,
+        sslcertificatekeypath   => $sslcertificatekeypath,
+        sslcertificatechainpath => $sslcertificatechainpath,
         template                => $template,
         force_create            => $force_create,
       }
     }
     'absent' : {
       zendserver::vhost::remove { $name:
-        target        => $target,
-        port          => $port,
-        downcase_vhostname     => downcase($vhostname),
+        target             => $target,
+        port               => $port,
+        downcase_vhostname => downcase($vhostname),
       }
     }
     default                : {
