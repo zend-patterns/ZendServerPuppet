@@ -12,7 +12,7 @@ class zendserver::bootstrap inherits zendserver {
     require => File['/usr/local/zend'],
   }
 
-  if $::zend_gui_completed != 'true' {
+  if $::join_cluster == 'true' and $::zend_gui_completed != 'true' {
     notify {"You may see error messages if vhost, app, etc. settings are applied (defined) before the bootstrap is complete. If it's the case, just run puppet again.": }
     include zendserver::bootstrap::exec
   }
