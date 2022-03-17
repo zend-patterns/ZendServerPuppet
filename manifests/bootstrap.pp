@@ -13,7 +13,11 @@ class zendserver::bootstrap inherits zendserver {
   }
 
   if $::join_cluster == 'true' and $::zend_gui_completed != 'true' {
-    notify {"You may see error messages if vhost, app, etc. settings are applied (defined) before the bootstrap is complete. If it's the case, just run puppet again.": }
+    $msg = @("EOF")
+    You may see error messages if vhost, app, etc. settings are applied (defined) before the 
+    bootstrap is complete. If it's the case, just run puppet again.
+    |-EOF
+    notify { $msg: }
     include zendserver::bootstrap::exec
   }
 }

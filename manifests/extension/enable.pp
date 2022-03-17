@@ -1,6 +1,5 @@
 # == Define: zendserver::extension::enable
 # Enables a Zend Server extension
-
 define zendserver::extension::enable (
   $target                   = 'localadmin',
 ) {
@@ -14,8 +13,8 @@ define zendserver::extension::enable (
       target             => $target,
       api_command        => 'configurationExtensionsOn',
       additional_options => "--extensions=\"${name}\"",
-    } ->
-    zendserver::sdk::command { "extension_enable_reload_${name}":
+    }
+    -> zendserver::sdk::command { "extension_enable_reload_${name}":
       target      => $target,
       api_command => 'restartPhp',
     }

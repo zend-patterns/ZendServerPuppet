@@ -1,67 +1,62 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
-group :unit_tests do
-  gem 'json',                                                      :require => false
-  gem 'puppet-lint-absolute_classname-check',                      :require => false
-  gem 'puppet-lint-absolute_template_path',                        :require => false
-  gem 'puppet-lint-alias-check',                                   :require => false
-  gem 'puppet-lint-appends-check',                                 :require => false
-  gem 'puppet-lint-classes_and_types_beginning_with_digits-check', :require => false
-  gem 'puppet-lint-empty_string-check',                            :require => false
-  gem 'puppet-lint-file_ensure-check',                             :require => false
-  gem 'puppet-lint-file_source_rights-check',                      :require => false
-  gem 'puppet-lint-leading_zero-check',                            :require => false
-  gem 'puppet-lint-numericvariable',                               :require => false
-  gem 'puppet-lint-resource_outside_class-check',                  :require => false
-  gem 'puppet-lint-resource_reference_syntax',                     :require => false
-  gem 'puppet-lint-spaceship_operator_without_tag-check',          :require => false
-  gem 'puppet-lint-strict_indent-check',                           :require => false
-  gem 'puppet-lint-trailing_comma-check',                          :require => false
-  gem 'puppet-lint-trailing_newline-check',                        :require => false
-  gem 'puppet-lint-undef_in_function-check',                       :require => false
-  gem 'puppet-lint-unquoted_string-check',                         :require => false
-  gem 'puppet-lint-usascii_format-check',                          :require => false
-  gem 'puppet-lint-variable_contains_upcase',                      :require => false
-  gem 'puppet-lint-version_comparison-check',                      :require => false
-  gem 'puppetlabs_spec_helper',                                    :require => false
-  gem 'rspec-puppet-facts',                                        :require => false
-  gem 'rubocop', '~> 0.41.2',                                      :require => false if RUBY_VERSION =~ /^1\.9/
-  gem 'rubocop',                                                   :require => false if RUBY_VERSION =~ /^2\./
+def location_for(place_or_version, fake_version = nil)
+  git_url_regex = %r{\A(?<url>(https?|git)[:@][^#]*)(#(?<branch>.*))?}
+  file_url_regex = %r{\Afile:\/\/(?<path>.*)}
+
+  if place_or_version && (git_url = place_or_version.match(git_url_regex))
+    [fake_version, { git: git_url[:url], branch: git_url[:branch], require: false }].compact
+  elsif place_or_version && (file_url = place_or_version.match(file_url_regex))
+    ['>= 0', { path: File.expand_path(file_url[:path]), require: false }]
+  else
+    [place_or_version, { require: false }]
+  end
 end
+
+ruby_version_segments = Gem::Version.new(RUBY_VERSION.dup).segments
+minor_version = ruby_version_segments[0..1].join('.')
 
 group :development do
-  # gem 'guard-rake',       :require => false
-  gem 'librarian-puppet', :require => false
-  gem 'simplecov',        :require => false
+  gem "json", '= 2.0.4',                                         require: false if Gem::Requirement.create('~> 2.4.2').satisfied_by?(Gem::Version.new(RUBY_VERSION.dup))
+  gem "json", '= 2.1.0',                                         require: false if Gem::Requirement.create(['>= 2.5.0', '< 2.7.0']).satisfied_by?(Gem::Version.new(RUBY_VERSION.dup))
+  gem "json", '= 2.3.0',                                         require: false if Gem::Requirement.create(['>= 2.7.0', '< 2.8.0']).satisfied_by?(Gem::Version.new(RUBY_VERSION.dup))
+  gem "puppet-module-posix-default-r#{minor_version}", '~> 1.0', require: false, platforms: [:ruby]
+  gem "puppet-module-posix-dev-r#{minor_version}", '~> 1.0',     require: false, platforms: [:ruby]
+  gem "puppet-module-win-default-r#{minor_version}", '~> 1.0',   require: false, platforms: [:mswin, :mingw, :x64_mingw]
+  gem "puppet-module-win-dev-r#{minor_version}", '~> 1.0',       require: false, platforms: [:mswin, :mingw, :x64_mingw]
 end
-
 group :system_tests do
-  if RUBY_VERSION < '2.2.5'
-    # beaker 3.1+ requires ruby 2.2.5.  Lock to 2.0
-    gem 'beaker', '~> 2.0', :require => false
-    # beaker-rspec 6.0.0 requires beaker 3.0. Lock to 5.0
-    gem 'beaker-rspec', '~> 5.0', :require => false
-  else
-    gem 'beaker-rspec', :require => false
+  gem "puppet-module-posix-system-r#{minor_version}", '~> 1.0', require: false, platforms: [:ruby]
+  gem "puppet-module-win-system-r#{minor_version}", '~> 1.0',   require: false, platforms: [:mswin, :mingw, :x64_mingw]
+end
+
+puppet_version = ENV['PUPPET_GEM_VERSION']
+facter_version = ENV['FACTER_GEM_VERSION']
+hiera_version = ENV['HIERA_GEM_VERSION']
+
+gems = {}
+
+gems['puppet'] = location_for(puppet_version)
+
+# If facter or hiera versions have been specified via the environment
+# variables
+
+gems['facter'] = location_for(facter_version) if facter_version
+gems['hiera'] = location_for(hiera_version) if hiera_version
+
+gems.each do |gem_name, gem_params|
+  gem gem_name, *gem_params
+end
+
+# Evaluate Gemfile.local and ~/.gemfile if they exist
+extra_gemfiles = [
+  "#{__FILE__}.local",
+  File.join(Dir.home, '.gemfile'),
+]
+
+extra_gemfiles.each do |gemfile|
+  if File.file?(gemfile) && File.readable?(gemfile)
+    eval(File.read(gemfile), binding)
   end
-  gem 'serverspec', :require => false
-  # gem 'vagrant-wrapper', :require => false
 end
-
-# json_pure 2.0.2 added a requirement on ruby >= 2. We pin to json_pure 2.0.1
-# if using ruby 1.x
-gem 'json_pure', '<= 2.0.1', :require => false if RUBY_VERSION =~ /^1\./
-
-if (facterversion = ENV['FACTER_GEM_VERSION'])
-  gem 'facter', facterversion, :require => false
-else
-  gem 'facter', :require => false
-end
-
-if (puppetversion = ENV['PUPPET_GEM_VERSION'])
-  gem 'puppet', puppetversion, :require => false
-else
-  gem 'puppet', '~> 3.8', :require => false
-end
-
-# vim:ft=ruby
+# vim: syntax=ruby

@@ -1,11 +1,10 @@
 # == Class: zendserver::install
 #   Install Zend Server
 #
-
 class zendserver::install {
   case $::zendserver::webserver {
     'nginx' : { $zendserverpkgname = "zend-server-${zendserver::webserver}-php-${zendserver::phpversion}" }
-    default : { $zendserverpkgname = "zend-server" }
+    default : { $zendserverpkgname = 'zend-server' }
     #default : { $zendserverpkgname = "zend-server-php-${zendserver::phpversion}" }
   }
 

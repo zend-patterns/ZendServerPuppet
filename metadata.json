@@ -1,5 +1,11 @@
 {
+  "name": "zend-zendserver",
+  "version": "0.2.0",
   "author": "David Lowes",
+  "summary": "Install and manage Zend Server",
+  "license": "Apache 2",
+  "source": "https://github.com/zend-patterns/ZendServerPuppet.git",
+  "project_page": "http://www.zend.com/en/products/server",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -11,33 +17,49 @@
     }
   ],
   "operatingsystem_support": [
-  	{
-  		"operatingsystem":"RedHat",
-  		"operatingsystemrelease":[ "5.0", "6.0", "7.0" ]
-  	},
-  	{
-  		"operatingsystem":"CentOS",
-  		"operatingsystemrelease":[ "5.0", "6.0", "7.0" ]
-  	},
-  	{
-  		"operatingsystem":"Debian",
-  		"operatingsystemrelease":[ "6.0", "7.0" ]
-  	},
-  	{
-  		"operatingsystem": "Ubuntu",
-  		"operatingsystemrelease": [
-    		"14.04",
-    		"12.04",
-    		"10.04"
-    	]
-  	}
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5.0",
+        "6.0",
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6.0",
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "12.04",
+        "10.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
+    }
   ],
   "description": "Install and manage Zend Server",
-  "license": "Apache 2",
-  "name": "zend-zendserver",
-  "project_page": "http://www.zend.com/en/products/server",
-  "source": "https://github.com/zend-patterns/ZendServerPuppet.git",
-  "summary": "Install and manage Zend Server",
-  "types": [],
-  "version": "0.2.0"
+  "types": [
+
+  ],
+  "pdk-version": "2.4.0",
+  "template-url": "pdk-default#2.4.0",
+  "template-ref": "tags/2.4.0-0-gfa6b6d2"
 }

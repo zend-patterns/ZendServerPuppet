@@ -12,15 +12,16 @@
 # Zend Server API key secret hash (not necessary if a target is defined)
 # [*zsversion*]
 # The version of Zend Server that this target runs - this option helps choose the correct web api calls to use
-
 define zendserver::sdk::target ($zskey,
                                 $zssecret,
                                 $target=$name,
                                 $zsurl=$zendserver::zsurl,
                                 $zsversion='8.0'){
   #TODO: replace the exec with a file or ini_file type
+  # to keep stupid pdk's 140 chars happy
+  $cmd = '/usr/local/zend/bin/php'
   exec {"add-target-${name}":
-    command => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar addTarget --target=${target} --zskey=${zskey} --zssecret=${zssecret}",
+    command => "${cmd} /usr/local/zend/bin/zs-client.phar addTarget --target=${target} --zskey=${zskey} --zssecret=${zssecret}",
     require => File['/usr/local/zend/bin/zs-client.phar'],
     unless  => "/usr/local/zend/bin/php /usr/local/zend/bin/zs-client.phar getSystemInfo --target=${target}",
   }

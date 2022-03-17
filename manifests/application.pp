@@ -48,7 +48,6 @@
 #    version  => "3",
 #    logo     => '/usr/share/pixmaps/poweredby.png',
 #    }
-
 define zendserver::application (
   $ensure,
   $target        = 'localadmin',

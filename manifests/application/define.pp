@@ -17,7 +17,6 @@
 # The user application's name (alias) (Default: resource name)
 # [*user_params*]
 # Optional parameters to pass to the deployment command.
-
 define zendserver::application::define (
   $base_url,
   $target,

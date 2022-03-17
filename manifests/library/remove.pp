@@ -6,7 +6,6 @@
 # Zend Server SDK target from which to remove the library.
 # [*user_lib_name*]
 # Zend Server Library name to remove.
-
 define zendserver::library::remove ($target, $user_lib_name = $name,) {
   # Check if application is deployed by using facter
   $lib_name_fact = getvar("::zend_library_name_${user_lib_name}")

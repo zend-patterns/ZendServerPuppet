@@ -6,7 +6,6 @@
 # Zend Server SDK target from which to remove the application.
 # [*user_app_name*]
 # The user application's name (alias) (Default: definition name)
-
 define zendserver::application::remove ($target, $user_app_name = $name,) {
   # Check if application is deployed by using facter
   $app_name_fact = getvar("::zend_application_name_${user_app_name}")

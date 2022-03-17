@@ -11,7 +11,8 @@
 # [*http_timeout*]
 # Timeout for the remote Zend Server to respond (Default: 60 seconds)
 # [*additional_options*]
-# Options to supply to the Zend Server command. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
+# Options to supply to the Zend Server command. See "/usr/local/zend/bin/zs-manage --help" for a list of the
+# relevant options for each command.
 # [*zsurl*]
 # URL To the Zend Server web API (Default: http://localhost:10081/ZendServer)
 # [*onlyif*]
@@ -24,11 +25,11 @@ define zendserver::zsmanage (
   $zssecret,
   $http_timeout       = 60,
   $additional_options = '',
-  $zsurl              =  "${zendserver::zsurl}",
+  $zsurl              = $zendserver::zsurl,
   $onlyif             = [],) {
   exec { "zsmanage_${name}":
     command => "/usr/local/zend/bin/zs-manage ${command} -N ${zskey} -K ${zssecret} -T ${http_timeout} ${additional_options}",
     require => Package[$zendserver::install::zendserverpkgname],
-    onlyif => $onlyif,
+    onlyif  => $onlyif,
   }
 }
