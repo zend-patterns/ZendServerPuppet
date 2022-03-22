@@ -21,7 +21,6 @@
 #
 # Todo: paths
 # Todo: other types?
-
 define zendserver::directive (
   $directive_value,
   $target             = 'localadmin',
@@ -35,13 +34,13 @@ define zendserver::directive (
 
   # Check if application is deployed by using facter
   if $directive_value_fact != $directive_value {
-  
+
     zendserver::sdk::command { "directive_change_${downcase_name}":
       target             => $target,
       api_command        => 'configurationStoreDirectives',
       additional_options => "--directives=\"${name}=${directive_value}\"",
-    } ->
-    zendserver::sdk::command { "directive_change_reload_${downcase_name}":
+    }
+    -> zendserver::sdk::command { "directive_change_reload_${downcase_name}":
       target      => $target,
       api_command => 'restartPhp',
     }

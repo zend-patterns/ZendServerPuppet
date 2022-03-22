@@ -3,7 +3,8 @@
 # You can read more about the SDK at https://github.com/zend-patterns/ZendServerSDK
 # === Parameters
 # [*target*]
-# The target which the command will be run against - zendserver::bootstrap::exec defines a target named 'localamdin' pointing to the local server
+# The target which the command will be run against - zendserver::bootstrap::exec defines a target named 'localamdin'
+# pointing to the local server
 # You can define more targets using zendserver::sdk:target
 # [*api_command*]
 # The api command to run (Default: $name). See /usr/local/zend/bin/zs-client.phar command:all for a list of commands to run

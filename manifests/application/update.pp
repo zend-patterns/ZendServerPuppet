@@ -1,5 +1,6 @@
 # == Define: zendserver::application::update
-# Update an application using the Zend Server SDK (zs-client.phar). This is an internal definition and should not be called directly by a user.
+# Update an application using the Zend Server SDK (zs-client.phar).
+# This is an internal definition and should not be called directly by a user.
 # === Parameters
 # [*target]
 # Zend Server SDK target from which to remove the application.
@@ -9,7 +10,6 @@
 # The user application's name (alias) (Default: definition name)
 # [*user_params*]
 # Optional parameters to pass to the deployment command.
-
 define zendserver::application::update ($target, $app_package, $user_app_name = $name, $user_params = undef,) {
   # TODO: check application version in zpk against deployed
   # Check if application is deployed by using facter

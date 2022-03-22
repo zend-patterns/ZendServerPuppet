@@ -20,7 +20,6 @@
 # A local template vhost file is a file that should be present on the machine where zs-client is running.
 # [*force_create*]
 # Force the creation of a virtual host, even if it fails syntax validation. Default: FALSE
-
 define zendserver::vhost::add (
   $target,
   $downcase_vhostname,
@@ -55,8 +54,8 @@ define zendserver::vhost::add (
       target             => $target,
       api_command        => 'vhostAdd',
       additional_options => $additional_options,
-    } ->
-    zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
+    }
+    -> zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
       target      => $target,
       api_command => 'restartPhp',
     }

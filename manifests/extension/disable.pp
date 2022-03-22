@@ -1,6 +1,5 @@
 # == Define: zendserver::extension::disable
 # Disables a Zend Server extension
-
 define zendserver::extension::disable (
   $target                   = 'localadmin',
 ) {
@@ -18,8 +17,8 @@ define zendserver::extension::disable (
       target             => $target,
       api_command        => 'configurationExtensionsOff',
       additional_options => "--extensions=\"${name}\"",
-    } ->
-    zendserver::sdk::command { "extension_disable_reload_${name}":
+    }
+    -> zendserver::sdk::command { "extension_disable_reload_${name}":
       target      => $target,
       api_command => 'restartPhp',
     }

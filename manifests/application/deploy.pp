@@ -12,7 +12,6 @@
 # Whether to create a web server vhost to access the app.
 # [*user_params*]
 # Optional parameters to pass to the deployment command.
-
 define zendserver::application::deploy (
   $target,
   $app_package,

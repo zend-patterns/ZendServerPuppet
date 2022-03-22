@@ -7,7 +7,6 @@
 # Zend Server SDK target from which to remove the library.
 # [*lib_package*]
 # Zend Server Library name to remove.
-
 define zendserver::library::deploy ($lib_package, $target,) {
   $required_options = "--zpk=${lib_package}"
   $additional_options = ''

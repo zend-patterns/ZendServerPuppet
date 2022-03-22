@@ -16,7 +16,6 @@
 # [*logo*]
 # Path to a local file on the server holding the library's logo (for displaying in the Zend Server console).
 # It is advised you add a puppet "File" resource for the logo file and "require" it.
-
 define zendserver::library (
   $ensure,
   $target          = 'localadmin',

@@ -6,7 +6,6 @@
 # Zend Server SDK target from which to remove the application.
 # [*user_vhost_name*]
 # The user application's name (alias) (Default: definition name)
-
 define zendserver::vhost::remove (
   $target,
   $downcase_vhostname,
@@ -32,8 +31,8 @@ define zendserver::vhost::remove (
       target             => $target,
       api_command        => 'vhostRemove',
       additional_options => $required_options,
-    } ->
-    zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
+    }
+    -> zendserver::sdk::command { "vhost_reload_${downcase_vhostname}_${port}":
       target      => $target,
       api_command => 'restartPhp',
     }

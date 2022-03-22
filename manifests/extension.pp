@@ -23,7 +23,6 @@
 #  enabled         => false,
 #  }
 # 
-
 define zendserver::extension (
   $enabled,
   $target                   = 'localadmin',

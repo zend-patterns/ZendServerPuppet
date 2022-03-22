@@ -13,8 +13,8 @@
 # [*http_timeout*]
 # Timeout for the remote Zend Server to respond (Default: 60 seconds)
 # [*additional_options*]
-# Options to supply to the Zend Server command. See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
-
+# Options to supply to the Zend Server command.
+# See "/usr/local/zend/bin/zs-manage --help" for a list of the relevant options for each command.
 #TODO: implement the definition
 define zendserver::zsmanage::command (
   $command            = $name,

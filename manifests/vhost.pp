@@ -76,7 +76,6 @@
 #    vhostname     => 'vhost2',
 #    template      => '/usr/local/zend/share/vhost_puppet_test.tpl',
 #  }
-
 define zendserver::vhost (
   $ensure,
   $vhostname,
@@ -106,9 +105,9 @@ define zendserver::vhost (
     }
     'absent' : {
       zendserver::vhost::remove { $name:
-        target        => $target,
-        port          => $port,
-        downcase_vhostname     => downcase($vhostname),
+        target             => $target,
+        port               => $port,
+        downcase_vhostname => downcase($vhostname),
       }
     }
     default                : {

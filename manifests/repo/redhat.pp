@@ -14,22 +14,23 @@ unless ($::osfamily == 'RedHat') and (versioncmp($::operatingsystemrelease, '6.0
     /^5.*$/ => 'rpm',
     /^6.*$/ => 'rpm',
     /^7.*$/ => 'rpm_apache2.4',
+    /^8.*$/ => 'rpm_centos8',
   }
-    
+
 
   yumrepo { 'Zend':
-    baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/${rpmdir}/${::architecture}",
+    baseurl  => "https://repos.zend.com/zend-server/${zendserver::zend_server_version}/${rpmdir}/${::architecture}",
     descr    => 'Zend Server',
     enabled  => 1,
     gpgcheck => 1,
-    gpgkey   => 'http://repos.zend.com/zend.key',
+    gpgkey   => 'https://repos.zend.com/zend.key',
   }
 
   yumrepo { 'Zend_noarch':
-    baseurl  => "http://repos.zend.com/zend-server/${zendserver::zend_server_version}/${rpmdir}/noarch",
+    baseurl  => "https://repos.zend.com/zend-server/${zendserver::zend_server_version}/${rpmdir}/noarch",
     descr    => 'Zend Server',
     enabled  => 1,
     gpgcheck => 1,
-    gpgkey   => 'http://repos.zend.com/zend.key',
+    gpgkey   => 'https://repos.zend.com/zend.key',
   }
 }
