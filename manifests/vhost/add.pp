@@ -44,7 +44,8 @@ define zendserver::vhost::add (
   $secure_options          = "--sslCertificatePath=${sslCertificatePath} --sslCertificateKeyPath=${sslCertificateKeyPath}"
 
 # ${name}_${port} is required to make the vhost unique. Many vhosts can have the same name if they run on different ports.
-  $vhost_name_fact       = getvar("::zend_vhost_name_${downcase_vhostname}_${port}")
+ # $vhost_name_fact       = getvar("::zend_vhost_name_${downcase_vhostname}_${port}")
+  $vhost_name_fact       = "::zend_vhost_name_${downcase_vhostname}_${port}"
 
 #Check if vhost exists by using facter
   if $vhost_name_fact != undef {
